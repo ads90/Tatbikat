@@ -47,7 +47,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Abdullah Tahan (Y5BALEL27C)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
@@ -120,7 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tatbikat\Tatbikat.csproj">
-      <Project>{d25bb3cc-e042-4642-9f7b-d25d99798d61}</Project>
+      <Project>{0379AAE4-FBE5-4B39-B77C-91B3B3452316}</Project>
       <Name>Tatbikat</Name>
     </ProjectReference>
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace Tatbikat
 		{
 			InitializeComponent();
 
-			MainPage = new Tatbikat.MainPage();
+            MainPage = new NavigationPage(new Tatbikat.MainPage());
 		}
 
 		protected override void OnStart ()

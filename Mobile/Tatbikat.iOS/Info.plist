@@ -21,11 +21,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>11.2</string>
+	<string>10.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>Tatbikat</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Tatbikat</string>
+	<string>com.ads.newtonsoft.test</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>

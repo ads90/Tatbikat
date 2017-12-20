@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage Title="تطبيقات" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Tatbikat" x:Class="Tatbikat.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
+    <Grid>
+        <ListView  HasUnevenRows="true" ItemsSource="{Binding Apps}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid HorizontalOptions="End" Grid.Column="0">
+                                <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}" />
+                                <!--Category-->
+                            </Grid>
+                            <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
+                                <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

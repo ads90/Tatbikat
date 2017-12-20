@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tatbikat", "Mobile\Tatbikat\Tatbikat.csproj", "{0379AAE4-FBE5-4B39-B77C-91B3B3452316}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatbikat", "Mobile\Tatbikat\Tatbikat.csproj", "{0379AAE4-FBE5-4B39-B77C-91B3B3452316}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatbikat.Android", "Mobile\Tatbikat.Android\Tatbikat.Android.csproj", "{DBA23FA0-7D7D-4464-9CAB-334F3C137F52}"
 EndProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{DB1CB2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portal", "Portal", "{7619D68A-F15B-4357-8F6C-D768F31C33E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TatbikatPortal", "TatbikatPortal\TatbikatPortal.csproj", "{64456783-4209-45D8-AA6F-556EF243463A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TatbikatPortal", "TatbikatPortal\TatbikatPortal.csproj", "{64456783-4209-45D8-AA6F-556EF243463A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
