@@ -25,10 +25,10 @@ namespace Tatbikat.ViewModels
 
         private async void SearchForAppCommandFunction(string appname)
         {
-            if(string.IsNullOrWhiteSpace(appname))
-            {
-                return;
-            }
+            //if(string.IsNullOrWhiteSpace(appname))
+            //{
+            //    return;
+            //}
             var app =await Connector.Current.GetAppsFromiOSStore();
             
         }

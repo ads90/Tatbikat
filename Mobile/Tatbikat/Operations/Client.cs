@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tatbikat.UI.Interfaces;
 using Newtonsoft.Json;
+using Xamarin.Forms;
+
 namespace Tatbikat.Operations
 {
     public class Client : DelegatingHandler
@@ -13,7 +15,8 @@ namespace Tatbikat.Operations
         public Client()
         {
             InnerHandler = new HttpClientHandler();
-            _baseClient = new HttpClient(this);
+            _internetStatus = DependencyService.Get<IInternetStatusService>();
+           _baseClient = new HttpClient(this);
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -43,7 +46,7 @@ namespace Tatbikat.Operations
                 try
                 {
                     var xx = _baseClient;
-                    HttpResponseMessage responseMessage = await _baseClient.GetAsync(endPoint);
+                    var responseMessage = await _baseClient.GetAsync("https://httpbin.org/get");
                     string response = await responseMessage.Content?.ReadAsStringAsync();
                     if (!responseMessage.IsSuccessStatusCode)
                     {

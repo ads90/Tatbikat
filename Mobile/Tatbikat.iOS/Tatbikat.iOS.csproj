@@ -135,6 +135,9 @@
     <PackageReference Include="Xam.Plugin.Connectivity">
       <Version>3.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Net.Http">
+      <Version>2.2.29</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
