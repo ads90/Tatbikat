@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Tatbikat.Views;
 using Xamarin.Forms;
 
 namespace Tatbikat
@@ -13,7 +13,7 @@ namespace Tatbikat
 		{
 			InitializeComponent();
 
-            MainPage = new NavigationPage(new Tatbikat.MainPage());
+            MainPage = new NavigationPage(new AddAppScreen());
 		}
 
 		protected override void OnStart ()

@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,5 +27,7 @@
     <Folder Include="Views\" />
     <Folder Include="UI\" />
     <Folder Include="UI\Extensions\" />
+    <Folder Include="Operations\" />
+    <Folder Include="UI\Interfaces\" />
   </ItemGroup>
 </Project>

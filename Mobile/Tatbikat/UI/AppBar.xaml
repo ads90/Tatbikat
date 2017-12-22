@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.UI.AppBar">
+	<ContentView.Content>   
+        <Grid x:Name="Root" 
+              Margin="5,5,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2" />
+            </Grid.RowDefinitions>
+
+            <!--backicon-->
+            <Grid x:Name="BackIconContainer"
+                  IsVisible="{Binding IsBackButtonVisible}"
+                  WidthRequest="40"
+                  HeightRequest="40"
+                  Margin="10,0,4,0"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Center">
+                <Image Source="backicon.png"
+                       HeightRequest="17"
+                       Opacity="1"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackIconTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+
+            <!--Add icon-->
+             <Grid 
+            Grid.Column="2"
+                x:Name="AddIconContainer"
+                  IsVisible="{Binding IsBackButtonVisible}"
+                  WidthRequest="40"
+                  HeightRequest="40"
+                  Margin="10,0,4,0"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Center">
+                <Image Source="addicon.png"
+                       HeightRequest="17"
+                       Opacity="1"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddIconTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+            <!--title-->
+            <Label x:Name="PageTitle"
+                   TextColor="Green "
+                   Text="sdaas"
+                   Grid.Column="1"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   IsVisible="true" />
+           
+            <!--line-->
+            <BoxView x:Name="SeparotrLine"
+                     Grid.ColumnSpan="3"
+                     Grid.Row="1"  
+                     IsVisible="True"
+                     Opacity="0.2"
+                     Margin="-5,0,-5,0"
+                     HeightRequest="0.8"
+                     BackgroundColor="Black"
+                     VerticalOptions="End"
+                     HorizontalOptions="Fill" />
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

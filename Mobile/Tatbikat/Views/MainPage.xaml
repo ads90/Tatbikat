@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage Title="تطبيقات" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Tatbikat" x:Class="Tatbikat.MainPage">
+<ContentPage NavigationPage.HasNavigationBar="False" Title="تطبيقات" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Tatbikat" x:Class="Tatbikat.MainPage" xmlns:UIControls="clr-namespace:Tatbikat.UI">
     <ContentPage.BindingContext>
         <vm:MainPageViewModel />
     </ContentPage.BindingContext>
-    <Grid>
-        <ListView  HasUnevenRows="true" ItemsSource="{Binding Apps}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Margin="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid HorizontalOptions="End" Grid.Column="0">
-                                <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}" />
-                                <!--Category-->
-                            </Grid>
-                            <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
-                                <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                            </Frame>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+    <ContentPage.Content>
+        <Grid BackgroundColor="{StaticResource BackgroundColor}" Style="{StaticResource iOSPagePadding}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <UIControls:AppBar IsAddIconVisible="true" OnAddPressedCommand="{Binding AddAppCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="false" PageTitleText="تطبيقات" />
+            <Grid Grid.Row="1" RowSpacing="0" InputTransparent="True">
+                <ListView HasUnevenRows="true" ItemsSource="{Binding Apps}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid HorizontalOptions="End" Grid.Column="0">
+                                        <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}" />
+                                        <!--Category-->
+                                    </Grid>
+                                    <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
+                                        <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

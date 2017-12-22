@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Tatbikat.Models;
+using Tatbikat.Views;
+using Xamarin.Forms;
 
 namespace Tatbikat.ViewModels
 {
-    public class MainPageViewModel
+    public class MainPageViewModel:ViewModelsBase
     {
+        public Command AddAppCommand
+        {
+            get;
+            set;
+        }
         public MainPageViewModel()
         {
+
+            AddAppCommand = new Command(AddAppCommandFunction);
             Apps = new ObservableCollection<TatbikatApp>()
             {
                 new TatbikatApp(){ ID=1,ImageSource="https://png.icons8.com/ios/50/000000/delivery-filled.png",Name="tawseel",IOSStoreLink="https://itunes.apple.com/sa/app/tawseel-twsyl/id1070766519?mt=8",AndroidStoreLink="https://play.google.com/store/apps/details?id=sa.tawseel.client",
@@ -21,6 +30,12 @@ namespace Tatbikat.ViewModels
             
             };
         }
+
+        private async void AddAppCommandFunction()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AddAppScreen());
+        }
+
         public ObservableCollection<TatbikatApp> Apps
         {
             get;
