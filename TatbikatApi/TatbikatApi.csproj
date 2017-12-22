@@ -183,6 +183,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="TatbikatBLL\TatbikatBLL.csproj">
+      <Project>{25e66783-a0ab-4ea5-a4aa-0c9f93b6c8a9}</Project>
+      <Name>TatbikatBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="TatbikatModels\TatbikatModels.csproj">
+      <Project>{c9dd4035-aab2-41d8-9a67-0d51752eb555}</Project>
+      <Name>TatbikatModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
