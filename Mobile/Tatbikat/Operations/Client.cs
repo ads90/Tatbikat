@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Tatbikat.UI.Interfaces;
 using Newtonsoft.Json;
 using Xamarin.Forms;
-
+using System.Collections.Generic;
+using Tatbikat.UI.Extensions;
+using Tatbikat.UI.Exceptions;
 namespace Tatbikat.Operations
 {
     public class Client : DelegatingHandler
@@ -25,40 +27,40 @@ namespace Tatbikat.Operations
             {
                 if (!_internetStatus.IsConnected())
                 {
-                    await App.Current.MainPage.DisplayAlert(":(", "لايوجد اتصال بالانترنت", "موافث");
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await App.Current.MainPage.DisplayAlert(":(", "لايوجد اتصال بالانترنت", "موافق");
+                    });
                 }
 
-                response = await base.SendAsync(request, cancellationToken);
+                response = await base.SendAsync(request, cancellationToken); 
                 return response;
             }
+            
             catch (Exception nce)
             {
                 throw nce;
             }
         }
 
-        public async Task<TReturn> GetAsync<TReturn>(string endPoint)
+        public async Task<TReturn> GetAsync<TReturn>(string endPoint, string @params)
         {
             TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
-
+          
             await Task.Run(async () =>
             {
                 try
                 {
-                    var xx = _baseClient;
-                    var responseMessage = await _baseClient.GetAsync("https://httpbin.org/get");
+                    HttpResponseMessage responseMessage = await _baseClient.GetAsync(endPoint + @params);
                     string response = await responseMessage.Content?.ReadAsStringAsync();
-                    if (!responseMessage.IsSuccessStatusCode)
-                    {
-                        throw new Exception(response);
-                    }
+                   
                     TReturn obj = FromJson<TReturn>(response);
 
                     tcs?.TrySetResult(obj);
                 }
                 catch (Exception ex)
                 {
-                    tcs?.TrySetException(ex);
+                   // tcs?.TrySetException(ex);
                 }
             });
             return await tcs.Task;

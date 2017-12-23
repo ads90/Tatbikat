@@ -18,10 +18,8 @@ namespace Tatbikat.ViewModels
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
-        private bool _isBusy = false;
-
         public event PropertyChangedEventHandler PropertyChanged;
-
+        private bool _isBusy = false;
         public bool IsLoading
         {
             get { return _isBusy; }

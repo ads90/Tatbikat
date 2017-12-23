@@ -7,11 +7,12 @@ namespace Tatbikat.Operations
 {
     public partial class Connector
     {
-        public async Task<List<TatbikatApp>> GetAppsFromiOSStore()
+        public async Task<InternalIOSApp> GetAppsFromiOSStore(string @params)
         {
             try
             {
-                List<TatbikatApp> apiResult = await Client.GetAsync<List<TatbikatApp>>(Endpoints.IOSStoreSearch);
+                ///search?term=awnak&country=sa&entity=software
+                InternalIOSApp apiResult = await Client.GetAsync<InternalIOSApp>(Endpoints.IOSStoreSearch, @params);
                 return apiResult;
             }
             catch (Exception ex)

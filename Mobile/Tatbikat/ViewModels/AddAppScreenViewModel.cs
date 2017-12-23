@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Tatbikat.Operations;
 using Xamarin.Forms;
 
@@ -25,11 +26,12 @@ namespace Tatbikat.ViewModels
 
         private async void SearchForAppCommandFunction(string appname)
         {
-            //if(string.IsNullOrWhiteSpace(appname))
-            //{
-            //    return;
-            //}
-            var app =await Connector.Current.GetAppsFromiOSStore();
+            if (string.IsNullOrWhiteSpace(appname))
+            {
+                return;
+            }
+            var searchParams = $"/search?term={appname}&country=sa&entity=software";
+            var app =await Connector.Current.GetAppsFromiOSStore(searchParams);
             
         }
     }

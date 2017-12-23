@@ -22,11 +22,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
-    <Folder Include="UI\" />
-    <Folder Include="UI\Extensions\" />
     <Folder Include="Operations\" />
     <Folder Include="UI\Interfaces\" />
   </ItemGroup>
