@@ -115,6 +115,7 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\backicon.png" />
     <BundleResource Include="Resources\addicon.png" />
+    <BundleResource Include="Resources\LoadingIndicatorIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

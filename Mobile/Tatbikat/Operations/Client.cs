@@ -6,8 +6,7 @@ using Tatbikat.UI.Interfaces;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using System.Collections.Generic;
-using Tatbikat.UI.Extensions;
-using Tatbikat.UI.Exceptions;
+
 namespace Tatbikat.Operations
 {
     public class Client : DelegatingHandler
@@ -33,7 +32,7 @@ namespace Tatbikat.Operations
                     });
                 }
 
-                response = await base.SendAsync(request, cancellationToken); 
+                    response = await base.SendAsync(request, cancellationToken); 
                 return response;
             }
             

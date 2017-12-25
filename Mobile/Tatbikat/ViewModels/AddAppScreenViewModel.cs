@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tatbikat.Models;
 using Tatbikat.Operations;
 using Xamarin.Forms;
 
@@ -23,16 +24,29 @@ namespace Tatbikat.ViewModels
             get { return _appSearchText; }
             set { RefreshUIProperty(ref _appSearchText, value); }
         }
-
+        private List<TatbikatApp> _appSearchResult=new List<TatbikatApp>();
+        public List<TatbikatApp> AppSearchResult
+        {
+            get { return _appSearchResult; }
+            set { RefreshUIProperty(ref _appSearchResult, value); }
+        }
+        //public List<TatbikatApp> AppSearchResult
+        //{
+        //    get;
+        //    set;
+        //}
         private async void SearchForAppCommandFunction(string appname)
         {
             if (string.IsNullOrWhiteSpace(appname))
             {
                 return;
             }
+            IsLoading=true;
             var searchParams = $"/search?term={appname}&country=sa&entity=software";
-            var app =await Connector.Current.GetAppsFromiOSStore(searchParams);
-            
+            var result =await Connector.Current.GetAppsFromiOSStore(searchParams);
+            List<TatbikatApp> castedResult= (List<TatbikatApp>)result;
+            AppSearchResult = castedResult;
+            IsLoading = false;
         }
     }
 }

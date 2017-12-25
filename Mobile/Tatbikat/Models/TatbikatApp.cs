@@ -10,6 +10,11 @@ namespace Tatbikat.Models
             get;
             set;
         }
+        public int IDForIOSApp
+        {
+            get;
+            set;
+        }
         public string Name
         {
             get;
@@ -35,5 +40,11 @@ namespace Tatbikat.Models
             get;
             set;
         }
+        public string AppDescription
+        {
+            get;
+            set;
+        }
+
     }
 }

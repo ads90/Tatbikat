@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.UI.Controls.LoadingOverlay">
+    <ContentView.Content>
+        <Grid>
+            <BoxView BackgroundColor="Black" Opacity="0.6" />
+            <Frame CornerRadius="8" VerticalOptions="Center" HorizontalOptions="Center" HasShadow="false" BackgroundColor="White" Margin="40">
+                <Grid x:Name="__rootGrid">
+                    <Image Source="LoadingIndicatorIcon.png" x:Name="__loadingImage" HeightRequest="30" Margin="15" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Center" />
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

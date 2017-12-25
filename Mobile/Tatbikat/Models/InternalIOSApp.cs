@@ -12,38 +12,58 @@ namespace Tatbikat.Models
 
         [JsonProperty("results")]
         public Result[] Results { get; set; }
+
+        public static explicit operator List<TatbikatApp>(InternalIOSApp b)
+        {
+            if (b.ResultCount == 0)
+            {
+                return null;
+            }
+            List<TatbikatApp> apps = new List<TatbikatApp>();
+            foreach (var app in b.Results)
+            {
+                apps.Add(new TatbikatApp()
+                {
+                    ImageSource = app.AppIcon,
+                    IDForIOSApp = app.IDForIOSApp,
+                    IOSStoreLink = app.AppUrl,
+                    Name = app.AppName,
+                    AppDescription=app.AppDescription
+                });
+
+            }
+            return apps;
+        }
     }
     public partial class Result
     {
-        public static explicit operator TatbikatApp(Result b)  // explicit byte to digit conversion operator
-        {
-            return new TatbikatApp();
-        }
+        [JsonProperty("trackId")]
+        public int IDForIOSApp { get; set; }
         [JsonProperty("artworkUrl100")]
-       // public string ArtworkUrl100 { get; set; }
-        private string _artworkUrl100;
-        public string ArtworkUrl100
+        // public string ArtworkUrl100 { get; set; }
+        private string _AppIcon;
+        public string AppIcon
         {
             get
             {
-                if (_artworkUrl100 != null)
+                if (_AppIcon != null)
                 {
-                    _artworkUrl100.Replace(".jpg", ".png");
+                    _AppIcon.Replace(".jpg", ".png");
                 }
-                return _artworkUrl100;
+                return _AppIcon;
             }
             set
             {
-                _artworkUrl100 = value; 
+                _AppIcon = value;
             }
         }
         [JsonProperty("trackCensoredName")]
-        public string TrackCensoredName { get; set; }
-     
+        public string AppName { get; set; }
+
         [JsonProperty("trackViewUrl")]
-        public string TrackViewUrl { get; set; }
-      
+        public string AppUrl { get; set; }
+
         [JsonProperty("description")]
-        public string Description { get; set; } 
+        public string AppDescription { get; set; }
     }
 }
