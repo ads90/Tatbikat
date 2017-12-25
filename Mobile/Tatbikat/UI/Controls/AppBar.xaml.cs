@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace Tatbikat.UI
+namespace Tatbikat.UI.Controls
 {
     [ContentProperty("Title")]
     public partial class AppBar : ContentView

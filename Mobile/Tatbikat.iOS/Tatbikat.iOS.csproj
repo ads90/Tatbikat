@@ -95,6 +95,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\ContentPageRenderer.cs" />
     <Compile Include="PlatformServices\InternetStatusService.cs" />
+    <Compile Include="Renderers\SAFrameRenderer.cs" />
+    <Compile Include="Renderers\SABoxViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -116,6 +118,9 @@
     <BundleResource Include="Resources\backicon.png" />
     <BundleResource Include="Resources\addicon.png" />
     <BundleResource Include="Resources\LoadingIndicatorIcon.png" />
+    <BundleResource Include="Resources\appleicon.png" />
+    <BundleResource Include="Resources\plusicon.png" />
+    <BundleResource Include="Resources\androidicon.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

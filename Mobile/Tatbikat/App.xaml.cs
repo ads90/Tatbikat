@@ -13,7 +13,7 @@ namespace Tatbikat
 		{
 			InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new AddAppScreen());
 		}
 
 		protected override void OnStart ()

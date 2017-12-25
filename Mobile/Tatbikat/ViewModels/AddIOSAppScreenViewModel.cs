@@ -6,14 +6,14 @@ using Xamarin.Forms;
 
 namespace Tatbikat.ViewModels
 {
-    public class AddAppScreenViewModel : ViewModelsBase
+    public class AddIOSAppScreenViewModel : ViewModelsBase
     {
         public Command<string> SearchForAppCommand
         {
             get;
             set;
         }
-        public AddAppScreenViewModel()
+        public AddIOSAppScreenViewModel()
         {
             SearchForAppCommand = new Command<string>(SearchForAppCommandFunction);
         }
