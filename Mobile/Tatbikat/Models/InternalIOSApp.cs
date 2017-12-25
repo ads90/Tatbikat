@@ -1,20 +1,37 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Tatbikat.Models
 {
-    public class InternalIOSApp
+    public class InternalIOSApp : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         [JsonProperty("resultCount")]
         public long ResultCount { get; set; }
 
-        [JsonProperty("results")]
-        public Result[] Results { get; set; }
+        //[JsonProperty("results")]
+        //public Result[] Results { get; set; }
+        [JsonProperty("results")] 
+        private Result[] _result;
+        public Result[] Result
+        {
+            get
+            { 
+                return _result;
+            }
+            set
+            {
+                Result = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Result)));
+            }
+        }
     }
-    public partial class Result
+    public partial class Result : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public static explicit operator TatbikatApp(Result b)  // explicit byte to digit conversion operator
         {
             return new TatbikatApp();
@@ -26,15 +43,17 @@ namespace Tatbikat.Models
         {
             get
             {
-                if (_artworkUrl100 != null)
-                {
-                    _artworkUrl100.Replace(".jpg", ".png");
-                }
+                
                 return _artworkUrl100;
             }
             set
             {
-                _artworkUrl100 = value; 
+                _artworkUrl100 = value;
+                if (_artworkUrl100 != null)
+                {
+                    _artworkUrl100 = _artworkUrl100.Replace(".jpg", ".png");
+                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(ArtworkUrl100));
             }
         }
         [JsonProperty("trackCensoredName")]

@@ -31,7 +31,7 @@ namespace Tatbikat.ViewModels
                 return;
             }
             var searchParams = $"/search?term={appname}&country=sa&entity=software";
-            var app =await Connector.Current.GetAppsFromiOSStore(searchParams);
+            Models.InternalIOSApp app =await Connector.Current.GetAppsFromiOSStore(searchParams);
             
         }
     }
