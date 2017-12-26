@@ -18,19 +18,20 @@ namespace Tatbikat.ViewModels
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private bool _isBusy = false;
+        private bool _isLoading = false;
         public bool IsLoading
         {
-            get { return _isBusy; }
+            get { return _isLoading; }
             set
             {
-                RefreshUIProperty(ref _isBusy, value);
+                RefreshUIProperty(ref _isLoading, value);
             }
         }
         protected void RefreshUIProperty<TProp>(ref TProp backedProp, TProp newValue, [CallerMemberName] string propertyName = "")
         {
+            backedProp = newValue;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

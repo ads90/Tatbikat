@@ -33,7 +33,7 @@ namespace Tatbikat.ViewModels
 
         private async void AddAppCommandFunction()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new AddAppScreen());
+            await Application.Current.MainPage.Navigation.PushAsync(new AddIOSAppScreen());
         }
 
         public ObservableCollection<TatbikatApp> Apps

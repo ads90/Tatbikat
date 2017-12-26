@@ -21,7 +21,7 @@
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
                                     <Grid HorizontalOptions="End" Grid.Column="0">
-                                        <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}" />
+                                        <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
                                         <!--Category-->
                                     </Grid>
                                     <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">

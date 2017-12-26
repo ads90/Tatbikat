@@ -1,68 +1,69 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 
 namespace Tatbikat.Models
 {
-    public class InternalIOSApp : INotifyPropertyChanged
+    public class InternalIOSApp
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         [JsonProperty("resultCount")]
         public long ResultCount { get; set; }
 
-        //[JsonProperty("results")]
-        //public Result[] Results { get; set; }
-        [JsonProperty("results")] 
-        private Result[] _result;
-        public Result[] Result
+        [JsonProperty("results")]
+        public Result[] Results { get; set; }
+
+        public static explicit operator List<TatbikatApp>(InternalIOSApp b)
         {
-            get
-            { 
-                return _result;
-            }
-            set
+            if (b.ResultCount == 0)
             {
-                Result = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Result)));
+                return null;
             }
+            List<TatbikatApp> apps = new List<TatbikatApp>();
+            foreach (var app in b.Results)
+            {
+                apps.Add(new TatbikatApp()
+                {
+                    ImageSource = app.AppIcon,
+                    IDForIOSApp = app.IDForIOSApp,
+                    IOSStoreLink = app.AppUrl,
+                    Name = app.AppName,
+                    AppDescription=app.AppDescription
+                });
+
+            }
+            return apps;
         }
     }
-    public partial class Result : INotifyPropertyChanged
+    public partial class Result
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public static explicit operator TatbikatApp(Result b)  // explicit byte to digit conversion operator
-        {
-            return new TatbikatApp();
-        }
+        [JsonProperty("trackId")]
+        public int IDForIOSApp { get; set; }
         [JsonProperty("artworkUrl100")]
-       // public string ArtworkUrl100 { get; set; }
-        private string _artworkUrl100;
-        public string ArtworkUrl100
+        // public string ArtworkUrl100 { get; set; }
+        private string _AppIcon;
+        public string AppIcon
         {
             get
             {
-                
-                return _artworkUrl100;
+                if (_AppIcon != null)
+                {
+                    _AppIcon.Replace(".jpg", ".png");
+                }
+                return _AppIcon;
             }
             set
             {
-                _artworkUrl100 = value;
-                if (_artworkUrl100 != null)
-                {
-                    _artworkUrl100 = _artworkUrl100.Replace(".jpg", ".png");
-                }
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(ArtworkUrl100));
+                _AppIcon = value;
             }
         }
         [JsonProperty("trackCensoredName")]
-        public string TrackCensoredName { get; set; }
-     
+        public string AppName { get; set; }
+
         [JsonProperty("trackViewUrl")]
-        public string TrackViewUrl { get; set; }
-      
+        public string AppUrl { get; set; }
+
         [JsonProperty("description")]
-        public string Description { get; set; } 
+        public string AppDescription { get; set; }
     }
 }

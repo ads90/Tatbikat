@@ -84,6 +84,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable\backicon.png" />
     <AndroidResource Include="Resources\drawable\addicon.png" />
+    <AndroidResource Include="Resources\drawable\LoadingIndicatorIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
