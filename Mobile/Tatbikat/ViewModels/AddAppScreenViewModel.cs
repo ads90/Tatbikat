@@ -1,4 +1,5 @@
 ﻿using System;
+<<<<<<< Updated upstream
 using System.Collections.Generic;
 using System.Text;
 using Tatbikat.Models;
@@ -30,6 +31,14 @@ namespace Tatbikat.ViewModels
         {
             get { return _appSearchText; }
             set { RefreshUIProperty(ref _appSearchText, value); }
+=======
+namespace Tatbikat.ViewModels
+{
+    public class AddAppScreenViewModel : ViewModelsBase
+    {
+        public AddAppScreenViewModel()
+        {
+>>>>>>> Stashed changes
         }
     }
 }
