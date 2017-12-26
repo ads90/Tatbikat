@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" NavigationPage.HasNavigationBar="False" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.Views.AddAppScreen">
     <ContentPage.BindingContext>
-        <vm:AddIOSAppScreenViewModel />
+        <vm:AddAppScreenViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource BackgroundColor}" Style="{StaticResource iOSPagePadding}">
@@ -33,6 +33,7 @@
                          <BoxView BackgroundColor="{StaticResource LightSilverColor}" Grid.RowSpan="2"/>
                         
                         <Label Margin="0,5" VerticalTextAlignment="Center" Grid.Row="0" TextColor="{StaticResource IdentityColor}" FontAttributes="Bold" FontSize="Medium" Text="اضافة تطبيق iOS" HorizontalTextAlignment="Center"/>
+                       
                         <Grid Grid.Row="1" Margin="20,5,20,10">
                         <UIControls:SABoxView HorizontalOptions="FillAndExpand"
                                                           VerticalOptions="FillAndExpand"
@@ -44,10 +45,13 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                                <Label IsEnabled="false" BackgroundColor="White" TextColor="{StaticResource IdentityColor}" Grid.Column="0"/>
+                                <Label Margin="0,0,10,0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
                                 <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
                                 <Image WidthRequest="20" HeightRequest="20" Source="appleicon.png" Grid.Column="1"/>
                         </Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddAppCommand}"/>
+                            </Grid.GestureRecognizers>
                        </Grid>
                     </Grid>
                 </UIControls:SAFrame>

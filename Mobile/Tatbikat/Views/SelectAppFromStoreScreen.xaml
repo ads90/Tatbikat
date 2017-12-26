@@ -5,7 +5,7 @@
     xmlns:vm="clr-namespace:Tatbikat.ViewModels"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Tatbikat.Views.AddIOSAppScreen">
+    x:Class="Tatbikat.Views.SelectAppFromStoreScreen">
     <ContentPage.BindingContext>
         <vm:AddIOSAppScreenViewModel />
     </ContentPage.BindingContext>
@@ -31,7 +31,7 @@
                     </Grid>
                     <Entry x:Name="AppSearchText" HorizontalTextAlignment="End" Grid.Column="1" Placeholder="الرجاء كتابة اسم التطبيق" />
                 </Grid>
-                <ListView HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
+                <ListView SelectedItem="{Binding SelectedApp}" HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

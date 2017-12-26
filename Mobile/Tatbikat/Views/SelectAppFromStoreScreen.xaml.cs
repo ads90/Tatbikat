@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace Tatbikat.Views
 {
-    public partial class AddIOSAppScreen : ContentPage
+    public partial class SelectAppFromStoreScreen : ContentPage
     {
-        public AddIOSAppScreen()
+        public SelectAppFromStoreScreen()
         {
             InitializeComponent();
         }
