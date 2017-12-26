@@ -121,6 +121,7 @@
     <BundleResource Include="Resources\appleicon.png" />
     <BundleResource Include="Resources\plusicon.png" />
     <BundleResource Include="Resources\androidicon.png" />
+    <BundleResource Include="Resources\filtericon.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

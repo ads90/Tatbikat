@@ -87,6 +87,44 @@
                        </Grid>
                     </Grid>
                 </UIControls:SAFrame>
+
+                      <!-- Categories -->
+                <UIControls:SAFrame  CornerRadius="5" Grid.Row="2"
+                            ShadowOpacity="1"
+                            BorderColor="Silver"
+                            BorderWidth="2"
+                            VerticalOptions="Fill"
+                            OutlineColor="Silver"
+                            BackgroundColor="{StaticResource BackgroundColor}"
+                            Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                         <BoxView BackgroundColor="{StaticResource LightSilverColor}" Grid.RowSpan="2"/>
+                        
+                        <Label Margin="0,5" VerticalTextAlignment="Center" Grid.Row="0" TextColor="{StaticResource IdentityColor}" FontAttributes="Bold" FontSize="Medium" Text="اختر الفئات" HorizontalTextAlignment="Center"/>
+                        <Grid Grid.Row="1" Margin="20,5,20,10">
+                        <UIControls:SABoxView HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          CornerRadius="4"
+                                                          BackgroundColor="{StaticResource SilverColor}" />
+
+                        <Grid Margin="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                                <Label IsEnabled="false" BackgroundColor="White" TextColor="{StaticResource IdentityColor}" Grid.Column="0"/>
+                                <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
+                                <Image WidthRequest="20" HeightRequest="20" Source="filtericon.png" Grid.Column="1"/>
+                        </Grid>
+                       </Grid>
+                    </Grid>
+                </UIControls:SAFrame>
+
+                <Button Margin="0,0,0,20" Grid.Row="4" HeightRequest="40" VerticalOptions="End" Text="ارسال" BackgroundColor="{StaticResource IdentityColor}" TextColor="White"/>
             </Grid>
         </Grid>
     </ContentPage.Content>
