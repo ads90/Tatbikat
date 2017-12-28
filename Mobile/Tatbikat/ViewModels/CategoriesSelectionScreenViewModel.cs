@@ -25,6 +25,7 @@ namespace Tatbikat.ViewModels
             };
             SelectedCategory = Categories.First();
         }
+        #region Properties
         private List<string> _salesmanSelectedSubcategories = new List<string>();
         private List<Category> _categories;
         public List<Category> Categories
@@ -48,6 +49,28 @@ namespace Tatbikat.ViewModels
                 InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
             }
         }
+        private Category _selectedCategory;
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set
+            {
+                if (_selectedCategory != null)
+                {
+                    _selectedCategory.IsSelected = false;
+                }
+                if (value != null)
+                {
+                    value.IsSelected = true;
+                }
+
+                RefreshUIProperty(ref _selectedCategory, value);
+
+                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
+
+            }
+        }
+        #endregion
         private void RefreshCategorySelectionStatus(Category salescategory)
         {
             if (salescategory.SubCategories.All(item => item.IsSelected))
@@ -76,6 +99,7 @@ namespace Tatbikat.ViewModels
                 return SelectedCategory.SubCategories.All(S => S.IsSelected);
             }
         }
+
         private void SelectAllSubCategoriesCommandFunction()
         {
             if (SelectedCategory?.SubCategories == null)
@@ -123,26 +147,6 @@ namespace Tatbikat.ViewModels
 
         }
 
-        private Category _selectedCategory;
-        public Category SelectedCategory
-        {
-            get { return _selectedCategory; }
-            set
-            {
-                if (_selectedCategory != null)
-                {
-                    _selectedCategory.IsSelected = false;
-                }
-                if (value != null)
-                {
-                    value.IsSelected = true;
-                }
-
-                RefreshUIProperty(ref _selectedCategory, value);
-
-                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
-
-            }
-        }
+     
     }
 }
