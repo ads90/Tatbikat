@@ -146,9 +146,9 @@
       <Version>2.2.29</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Renderers\" />
-    <Folder Include="PlatformServices\" />
+    <BundleResource Include="Resources\UncheckedMark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

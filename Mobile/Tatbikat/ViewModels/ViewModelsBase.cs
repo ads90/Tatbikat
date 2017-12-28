@@ -7,13 +7,14 @@ namespace Tatbikat.ViewModels
 {
     public class ViewModelsBase : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public Command BackCommand { get; set; }
         public ViewModelsBase()
         {
             BackCommand = new Command(NavigateBackRequested);
         }
 
-        public async void NavigateBackRequested()
+        public virtual async void NavigateBackRequested()
         {
             await Application.Current.MainPage.Navigation.PopAsync();
         }
@@ -32,6 +33,10 @@ namespace Tatbikat.ViewModels
             backedProp = newValue;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        protected void InvokePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+     
     }
 }

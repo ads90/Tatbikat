@@ -1,4 +1,4 @@
-﻿namespace Tatbikat.UI.Enums
+﻿namespace Tatbikat.Models.Enums
 {
     public enum PlatformType
     {

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using Tatbikat.Models.Enums;
 
 namespace Tatbikat.Models
 {
-    public class Category
+    public class Category : UIObject
     {
         public int ID
         {
@@ -24,6 +26,26 @@ namespace Tatbikat.Models
         {
             get;
             set;
+        }
+        private SubCategoriesStatus _selectionStatus;
+        [JsonIgnore]
+        public SubCategoriesStatus SelectionStatus
+        {
+            get { return _selectionStatus; }
+            set
+            {
+                Notify(ref _selectionStatus, value);
+            }
+        }
+        private bool _isSelected;
+        [JsonIgnore]
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                Notify(ref _isSelected, value);
+            }
         }
     }
 }

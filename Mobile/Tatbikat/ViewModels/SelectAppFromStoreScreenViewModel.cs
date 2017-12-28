@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tatbikat.Models;
+using Tatbikat.Models.Enums;
 using Tatbikat.Operations;
-using Tatbikat.UI.Enums;
 using Tatbikat.UI.Interfaces;
 using Xamarin.Forms;
 
@@ -13,14 +13,10 @@ namespace Tatbikat.ViewModels
     {
         PlatformType _platformType;
         TaskCompletionSource<TatbikatApp> _pageTcs;
-        public Command<string> SearchForAppCommand
-        {
-            get;
-            set;
-        }
+        public Command<string> SearchForAppCommand { get; set; }
         public SelectAppFromStoreScreenViewModel(PlatformType platformType)
         {
-            SearchForAppCommand = new Command<string>(SearchForAppCommandFunction); 
+            SearchForAppCommand = new Command<string>(SearchForAppCommandFunction);
             _pageTcs = new TaskCompletionSource<TatbikatApp>();
             _platformType = platformType;
         }
@@ -57,20 +53,40 @@ namespace Tatbikat.ViewModels
             _pageTcs?.TrySetResult((TatbikatApp)SelectedApp);
         }
 
-        private async void SearchForAppCommandFunction(string appname)
+        private void SearchForAppCommandFunction(string appname)
         {
             if (string.IsNullOrWhiteSpace(appname))
             {
                 return;
             }
             IsLoading = true;
-            var searchParams = $"/search?term={appname}&country=sa&entity=software";
-            var result = await Connector.Current.GetAppsFromiOSStore(searchParams);
-            List<TatbikatApp> castedResult = (List<TatbikatApp>)result;
-            AppSearchResult = castedResult;
+            if(_platformType== PlatformType.iOS)
+            { 
+                SearchForiOSApp(appname);
+            }
+            else
+            { 
+                SearchForAndroidApp(appname);
+            }
             IsLoading = false;
         }
 
+        private void SearchForAndroidApp(string appname)
+        {
+             
+        }
+
+        private async void SearchForiOSApp(string appname)
+        {
+            var searchParams = $"/search?term={appname}&country=sa&entity=software";
+            var result = await Connector.Current.GetAppsFromiOSStore(searchParams);
+            List<TatbikatApp> castedResult = (List<TatbikatApp>)result;
+            AppSearchResult = castedResult; 
+        }
+        public override void NavigateBackRequested()
+        {
+            _pageTcs?.TrySetResult(null);
+        }
         public Task<TatbikatApp> Wait()
         {
             return _pageTcs.Task;
