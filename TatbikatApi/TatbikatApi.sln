@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TatbikatModels", "TatbikatM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TatbikatBLL", "TatbikatBLL\TatbikatBLL.csproj", "{0E722C96-BC70-4DF7-9219-E576116D5350}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tatbikat.Portal", "Tatbikat.Portal\Tatbikat.Portal.csproj", "{187A7F3E-8FEF-417F-B292-7AADBF7F0A46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0E722C96-BC70-4DF7-9219-E576116D5350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E722C96-BC70-4DF7-9219-E576116D5350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E722C96-BC70-4DF7-9219-E576116D5350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187A7F3E-8FEF-417F-B292-7AADBF7F0A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187A7F3E-8FEF-417F-B292-7AADBF7F0A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187A7F3E-8FEF-417F-B292-7AADBF7F0A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187A7F3E-8FEF-417F-B292-7AADBF7F0A46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

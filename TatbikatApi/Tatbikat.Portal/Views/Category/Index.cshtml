@@ -1,0 +1,64 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<TatbikatModels.Category>
+@using TatbikatBLL
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading ui-draggable-handle">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h3 class="panel-title" id="panelTitle"><span class="fa fa-th">&nbsp;&nbsp;</span>Categories</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Category Name</th>
+                                <th class="text-center">Category Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var cat in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@cat.Name</td>
+                                    <td class="text-center"><img src="@cat.Image" alt="No Image Found" style="max-width:6vw; max-height:6vh" /></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 text-center">
+                        <a href="/Category/Create" class="btn  btn-success">
+                            <span class="fa fa-plus"></span>&nbsp;
+                            Add New Category
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    </div>
+</div>

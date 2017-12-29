@@ -18,7 +18,7 @@ namespace TatbikatApi.Controllers
         public IHttpActionResult GetAllApps()
         {
             List<App> allApps = appSer.GetAllApps();
-            return Ok(new { Result = allApps });
+            return Ok(new { allApps });
         }
 
 

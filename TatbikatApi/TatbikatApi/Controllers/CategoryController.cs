@@ -17,7 +17,7 @@ namespace TatbikatApi.Controllers
         public IHttpActionResult GetAllCategory()
         {
             List<Category> allCats = catSer.GetAllCategory();
-            return Ok(new { Result = allCats });
+            return Ok(new { allCats });
         }
     }
 }
