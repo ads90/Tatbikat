@@ -3,7 +3,10 @@
     <Application.Resources>
         <!-- Application resource dictionary -->
         <ResourceDictionary>
+            <Color x:Key="LightSilverColor">#eeeeee</Color>
             <Color x:Key="BackgroundColor">#fefefe</Color>
+            <Color x:Key="IdentityColor">#267F00</Color>
+            <Color x:Key="SilverColor">#bfbfbf</Color>
             <!--Give 20 padding for android to fix the tabbed page rederer navigation-->
             <OnPlatform x:Key="PlatformPaddingConfig" x:TypeArguments="Thickness" Android="0,0,0,0" iOS="0,20,0,0" />
             <Style x:Key="iOSPagePadding" TargetType="Grid">

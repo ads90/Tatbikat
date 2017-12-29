@@ -1,38 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tatbikat.Operations;
+using System.Text;
+using Tatbikat.Models;
+using Tatbikat.Models.Enums;
+using Tatbikat.UI.Interfaces;
+using Tatbikat.Views;
 using Xamarin.Forms;
 
 namespace Tatbikat.ViewModels
 {
-    public class AddAppScreenViewModel : ViewModelsBase
+    class AddAppScreenViewModel : ViewModelsBase
     {
-        public Command<string> SearchForAppCommand
-        {
-            get;
-            set;
-        }
+        public Command AddAppCommand { get; set; }
+        public Command SelectCategoriesCommand { get; set; }
         public AddAppScreenViewModel()
         {
-            SearchForAppCommand = new Command<string>(SearchForAppCommandFunction);
+            AddAppCommand = new Command(AddAppCommandFunction);
+            SelectCategoriesCommand = new Command(SelectCategoriesCommandFunction);
         }
 
+        private async void SelectCategoriesCommandFunction()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new CategoriesSelectionScreen());
+        }
+
+        private async void AddAppCommandFunction()
+        {
+            var page = new SelectAppFromStoreScreen(PlatformType.iOS);
+            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+            TatbikatApp result = await (page.BindingContext as ICallbackEnabledScreen<TatbikatApp>).Wait();
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+
+            AppSearchText = result == null ? "" : result.Name;
+        }
         private string _appSearchText;
         public string AppSearchText
         {
             get { return _appSearchText; }
             set { RefreshUIProperty(ref _appSearchText, value); }
-        }
 
-        private async void SearchForAppCommandFunction(string appname)
-        {
-            if (string.IsNullOrWhiteSpace(appname))
-            {
-                return;
-            }
-            var searchParams = $"/search?term={appname}&country=sa&entity=software";
-            var app =await Connector.Current.GetAppsFromiOSStore(searchParams);
-            
         }
     }
 }

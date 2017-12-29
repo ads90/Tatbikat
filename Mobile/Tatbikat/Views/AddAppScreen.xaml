@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage NavigationPage.HasNavigationBar="False" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.Views.AddAppScreen" xmlns:UIControls="clr-namespace:Tatbikat.UI">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" NavigationPage.HasNavigationBar="False" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.Views.AddAppScreen">
     <ContentPage.BindingContext>
         <vm:AddAppScreenViewModel />
     </ContentPage.BindingContext>
@@ -10,42 +10,129 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <UIControls:AppBar Grid.Row="0" VerticalOptions="Center" OnBackPressedCommand="{Binding BackCommand}" PageTitleText="اضافة تطبيق" />
-            <Grid Grid.Row="1" RowSpacing="0">
+            <Grid Grid.Row="1" RowSpacing="15" Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" ColumnSpacing="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid BackgroundColor="Silver" Padding="10,0" Grid.Column="0">
-                        <Button Command="{Binding SearchForAppCommand}" CommandParameter="{Binding Text,Source={x:Reference AppSearchText}}" Text="بحث" TextColor="Green" />
+            <!-- Add IOS App-->
+                <UIControls:SAFrame  CornerRadius="5" Grid.Row="0"
+                            ShadowOpacity="1"
+                            BorderColor="Silver"
+                            BorderWidth="2"
+                            VerticalOptions="Fill"
+                            OutlineColor="Silver"
+                            BackgroundColor="{StaticResource BackgroundColor}"
+                            Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                         <BoxView BackgroundColor="{StaticResource LightSilverColor}" Grid.RowSpan="2"/>
+                        
+                        <Label Margin="0,5" VerticalTextAlignment="Center" Grid.Row="0" TextColor="{StaticResource IdentityColor}" FontAttributes="Bold" FontSize="Medium" Text="اضافة تطبيق iOS" HorizontalTextAlignment="Center"/>
+                       
+                        <Grid Grid.Row="1" Margin="20,5,20,10">
+                        <UIControls:SABoxView HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          CornerRadius="4"
+                                                          BackgroundColor="{StaticResource SilverColor}" />
+
+                        <Grid Margin="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                                <Label Margin="0,0,10,0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
+                                <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
+                                <Image WidthRequest="20" HeightRequest="20" Source="appleicon.png" Grid.Column="1"/>
+                        </Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddAppCommand}"/>
+                            </Grid.GestureRecognizers>
+                       </Grid>
                     </Grid>
-                    <Entry x:Name="AppSearchText" HorizontalTextAlignment="End" Grid.Column="1" Placeholder="الرجاء كتابة اسم التطبيق" />
-                </Grid>
-                <ListView Grid.Row="1" SeparatorColor="Transparent">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid HorizontalOptions="End" Grid.Column="0">
-                                        <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding AppName}" />
-                                        <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding AppDescription}" />
-                                    </Grid>
-                                    <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
-                                        <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                                    </Frame>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                </UIControls:SAFrame>
+
+                 <!-- Add Android App-->
+                <UIControls:SAFrame  CornerRadius="5" Grid.Row="1"
+                            ShadowOpacity="1"
+                            BorderColor="Silver"
+                            BorderWidth="2"
+                            VerticalOptions="Fill"
+                            OutlineColor="Silver"
+                            BackgroundColor="{StaticResource BackgroundColor}"
+                            Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                         <BoxView BackgroundColor="{StaticResource LightSilverColor}" Grid.RowSpan="2"/>
+                        
+                        <Label Margin="0,5" VerticalTextAlignment="Center" Grid.Row="0" TextColor="{StaticResource IdentityColor}" FontAttributes="Bold" FontSize="Medium" Text="اضافة تطبيق Android" HorizontalTextAlignment="Center"/>
+                        <Grid Grid.Row="1" Margin="20,5,20,10">
+                        <UIControls:SABoxView HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          CornerRadius="4"
+                                                          BackgroundColor="{StaticResource SilverColor}" />
+
+                        <Grid Margin="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                                <Label IsEnabled="false" BackgroundColor="White" TextColor="{StaticResource IdentityColor}" Grid.Column="0"/>
+                                <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
+                                <Image WidthRequest="20" HeightRequest="20" Source="androidicon.png" Grid.Column="1"/>
+                        </Grid>
+                       </Grid>
+                        
+                    </Grid>
+                </UIControls:SAFrame>
+
+                      <!-- Categories -->
+                <UIControls:SAFrame  CornerRadius="5" Grid.Row="2"
+                            ShadowOpacity="1"
+                            BorderColor="Silver"
+                            BorderWidth="2"
+                            VerticalOptions="Fill"
+                            OutlineColor="Silver"
+                            BackgroundColor="{StaticResource BackgroundColor}"
+                            Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                         <BoxView BackgroundColor="{StaticResource LightSilverColor}" Grid.RowSpan="2"/>
+                        
+                        <Label Margin="0,5" VerticalTextAlignment="Center" Grid.Row="0" TextColor="{StaticResource IdentityColor}" FontAttributes="Bold" FontSize="Medium" Text="اختر الفئات" HorizontalTextAlignment="Center"/>
+                        <Grid Grid.Row="1" Margin="20,5,20,10">
+                        <UIControls:SABoxView HorizontalOptions="FillAndExpand"
+                                                          VerticalOptions="FillAndExpand"
+                                                          CornerRadius="4"
+                                                          BackgroundColor="{StaticResource SilverColor}" />
+
+                        <Grid Margin="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                                <Label IsEnabled="false" BackgroundColor="White" TextColor="{StaticResource IdentityColor}" Grid.Column="0"/>
+                                <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
+                                <Image WidthRequest="20" HeightRequest="20" Source="filtericon.png" Grid.Column="1"/>
+                        </Grid>
+                        </Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectCategoriesCommand}"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </UIControls:SAFrame>
+
+                <Button Margin="0,0,0,20" Grid.Row="4" HeightRequest="40" VerticalOptions="End" Text="ارسال" BackgroundColor="{StaticResource IdentityColor}" TextColor="White"/>
             </Grid>
         </Grid>
     </ContentPage.Content>
