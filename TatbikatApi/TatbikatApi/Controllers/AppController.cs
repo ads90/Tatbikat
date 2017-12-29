@@ -21,6 +21,7 @@ namespace TatbikatApi.Controllers
             return Ok(new { Result = allApps });
         }
 
+
         [HttpPost]
         public async Task AddApp(App newApp)
         {
