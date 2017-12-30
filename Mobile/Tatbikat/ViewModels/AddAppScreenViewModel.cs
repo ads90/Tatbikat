@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Tatbikat.Models;
 using Tatbikat.Models.Enums;
 using Tatbikat.UI.Interfaces;
@@ -11,34 +12,56 @@ namespace Tatbikat.ViewModels
 {
     class AddAppScreenViewModel : ViewModelsBase
     {
-        public Command AddAppCommand { get; set; }
+        public Command AddiOSAppCommand { get; set; }
+        public Command AddAndroidAppCommand { get; set; }
         public Command SelectCategoriesCommand { get; set; }
         public AddAppScreenViewModel()
         {
-            AddAppCommand = new Command(AddAppCommandFunction);
+            AddAndroidAppCommand=new Command(AddAndroidAppCommandFunction);
+            AddiOSAppCommand = new Command(AddiOSAppCommandFunction);
             SelectCategoriesCommand = new Command(SelectCategoriesCommandFunction);
         }
+        private string _appSearchiOSText;
+        public string AppSearchiOSText
+        {
+            get { return _appSearchiOSText; }
+            set { RefreshUIProperty(ref _appSearchiOSText, value); }
 
+        }
+        private string _appSearchAndroidText;
+        public string AppSearchAndroidText
+        {
+            get { return _appSearchAndroidText; }
+            set { RefreshUIProperty(ref _appSearchAndroidText, value); }
+
+        }
+        private async void AddAndroidAppCommandFunction()
+        {
+            Page page = new SelectAppFromStoreScreen(PlatformType.Android);
+            var result = await NavigateForResultAsync(page);
+            AppSearchAndroidText = result == null ? "" : result.Name;
+        }
+       
+        private async void AddiOSAppCommandFunction()
+        {
+            Page page = new SelectAppFromStoreScreen(PlatformType.iOS);
+            var result=await NavigateForResultAsync(page);
+            AppSearchiOSText = result == null ? "" : result.Name;
+        }
+        async Task<TatbikatApp> NavigateForResultAsync(Page page)
+        {
+            IsLoading = true;
+            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+            TatbikatApp result = await (page.BindingContext as ICallbackEnabledScreen<TatbikatApp>).Wait();
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+            IsLoading = false;
+            return result;
+        }
         private async void SelectCategoriesCommandFunction()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new CategoriesSelectionScreen());
         }
 
-        private async void AddAppCommandFunction()
-        {
-            var page = new SelectAppFromStoreScreen(PlatformType.iOS);
-            await Application.Current.MainPage.Navigation.PushModalAsync(page);
-            TatbikatApp result = await (page.BindingContext as ICallbackEnabledScreen<TatbikatApp>).Wait();
-            await Application.Current.MainPage.Navigation.PopModalAsync();
-
-            AppSearchText = result == null ? "" : result.Name;
-        }
-        private string _appSearchText;
-        public string AppSearchText
-        {
-            get { return _appSearchText; }
-            set { RefreshUIProperty(ref _appSearchText, value); }
-
-        }
+       
     }
 }

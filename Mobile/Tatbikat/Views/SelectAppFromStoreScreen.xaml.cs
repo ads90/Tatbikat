@@ -12,6 +12,7 @@ namespace Tatbikat.Views
         {
             InitializeComponent();
             this.BindingContext = new SelectAppFromStoreScreenViewModel(platformType);
+            appBar.PageTitleText = platformType == PlatformType.Android ? "ابحث في متجر الاندرويد":"ابحث في متجر الايفون";
         }
     }
 }

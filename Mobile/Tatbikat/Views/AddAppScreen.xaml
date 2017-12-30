@@ -45,12 +45,12 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                                <Label Margin="0,0,10,0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
+                                <Label Margin="0,0,10,0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchiOSText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
                                 <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
                                 <Image WidthRequest="20" HeightRequest="20" Source="appleicon.png" Grid.Column="1"/>
                         </Grid>
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding AddAppCommand}"/>
+                                <TapGestureRecognizer Command="{Binding AddiOSAppCommand}"/>
                             </Grid.GestureRecognizers>
                        </Grid>
                     </Grid>
@@ -84,10 +84,13 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                                <Label IsEnabled="false" BackgroundColor="White" TextColor="{StaticResource IdentityColor}" Grid.Column="0"/>
+                                <Label Margin="0,0,10,0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchAndroidText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
                                 <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
                                 <Image WidthRequest="20" HeightRequest="20" Source="androidicon.png" Grid.Column="1"/>
                         </Grid>
+                              <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddAndroidAppCommand}"/>
+                            </Grid.GestureRecognizers>
                        </Grid>
                     </Grid>
                 </UIControls:SAFrame>

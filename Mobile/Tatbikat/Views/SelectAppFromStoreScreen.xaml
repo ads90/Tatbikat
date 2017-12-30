@@ -12,7 +12,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <UIControls:AppBar Grid.Row="0" VerticalOptions="Center" OnBackPressedCommand="{Binding BackCommand}" PageTitleText="اضافة تطبيق من متجر iOS" />
+            <UIControls:AppBar Grid.Row="0" VerticalOptions="Center" OnBackPressedCommand="{Binding BackCommand}" x:Name="appBar"/>
             <Grid Grid.Row="1" RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
