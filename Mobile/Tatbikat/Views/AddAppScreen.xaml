@@ -89,7 +89,6 @@
                                 <Image WidthRequest="20" HeightRequest="20" Source="androidicon.png" Grid.Column="1"/>
                         </Grid>
                        </Grid>
-                        
                     </Grid>
                 </UIControls:SAFrame>
 
@@ -125,10 +124,7 @@
                                 <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
                                 <Image WidthRequest="20" HeightRequest="20" Source="filtericon.png" Grid.Column="1"/>
                         </Grid>
-                        </Grid>
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SelectCategoriesCommand}"/>
-                        </Grid.GestureRecognizers>
+                       </Grid>
                     </Grid>
                 </UIControls:SAFrame>
 

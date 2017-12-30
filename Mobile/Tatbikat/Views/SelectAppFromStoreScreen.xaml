@@ -5,7 +5,7 @@
     xmlns:vm="clr-namespace:Tatbikat.ViewModels"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Tatbikat.Views.SelectAppFromStoreScreen"> 
+    x:Class="Tatbikat.Views.SelectAppFromStoreScreen">
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource BackgroundColor}" Style="{StaticResource iOSPagePadding}">
             <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
                     </Grid>
                     <Entry x:Name="AppSearchText" HorizontalTextAlignment="End" Grid.Column="1" Placeholder="الرجاء كتابة اسم التطبيق" />
                 </Grid>
-                <ListView SelectedItem="{Binding SelectedApp}" HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
+                <ListView  SelectedItem="{Binding SelectedApp}" HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -42,9 +42,12 @@
                                             <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}" LineBreakMode="TailTruncation" />
                                             <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding AppDescription}" LineBreakMode="TailTruncation" />
                                         </StackLayout>
-                                        <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
-                                            <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                                        </Frame>
+                                       <!-- <Frame Margin="0" VerticalOptions="Fill" WidthRequest="50" HeightRequest="50" Grid.Column="1"  OutlineColor="Silver"  Padding="0">-->
+
+                                        <Grid Grid.Column="1">
+                                                <Image   WidthRequest="50" HeightRequest="50"  Source="{Binding ImageSource}" />
+                                            </Grid>
+<!--                                        </Frame>-->
                                     </Grid>
                                     <BoxView VerticalOptions="End" HeightRequest="1" BackgroundColor="Black" Opacity="0.6" />
                                 </Grid>
