@@ -42,13 +42,14 @@
                                                           BackgroundColor="{StaticResource SilverColor}" />
 
                         <Grid Margin="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                                <Label   VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchiOSText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
-                                <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
-                                <Image WidthRequest="20" HeightRequest="20" Source="appleicon.png" Grid.Column="1"/>
+                                  <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="20"/>
+                                    </Grid.ColumnDefinitions> 
+                                <Image Grid.Column="0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" />
+                                <Label   VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchiOSText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="1"/>
+                                <Image WidthRequest="20" HeightRequest="20" Source="appleicon.png" Grid.Column="2"/>
                         </Grid>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding AddiOSAppCommand}"/>
@@ -63,12 +64,13 @@
 
                             <Grid Margin="3">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="20"/>
                                 </Grid.ColumnDefinitions>
-                                <Label  VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchAndroidText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}" Grid.Column="0"/>
-                                <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
-                                <Image WidthRequest="20" HeightRequest="20" Source="androidicon.png" Grid.Column="1"/>
+                                <Image Grid.Column="0"  HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png"/>
+                                <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Text="{Binding AppSearchAndroidText}" BackgroundColor="White" TextColor="{StaticResource SilverColor}"/>
+                                <Image Grid.Column="2" WidthRequest="20" HeightRequest="20" Source="androidicon.png"/>
                             </Grid>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding AddAndroidAppCommand}"/>
