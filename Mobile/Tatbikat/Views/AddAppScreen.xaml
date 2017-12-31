@@ -126,8 +126,11 @@
                                 <Label IsEnabled="false" BackgroundColor="White" TextColor="{StaticResource IdentityColor}" Grid.Column="0"/>
                                 <Image Margin="10,0,0,0" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Source="plusicon.png" Grid.Column="0"/>
                                 <Image WidthRequest="20" HeightRequest="20" Source="filtericon.png" Grid.Column="1"/>
+                            </Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCategoriesCommand}"/>
+                            </Grid.GestureRecognizers>
                         </Grid>
-                       </Grid>
                     </Grid>
                 </UIControls:SAFrame>
 

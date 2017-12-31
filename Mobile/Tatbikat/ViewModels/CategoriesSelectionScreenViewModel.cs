@@ -41,14 +41,16 @@ namespace Tatbikat.ViewModels
             {
                 if (value != null)
                 {
+                    
                     value.IsSelected = !value.IsSelected;
                 }
 
                 RefreshUIProperty(ref _selectedItemSubCategory, value);
+                _selectedItemSubCategory = null;
                 RefreshCategorySelectionStatus(SelectedCategory);
                 InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
                 //have to test it more
-                value = null;
+                
             }
         }
         private Category _selectedCategory;

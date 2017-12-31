@@ -12,7 +12,7 @@
             <UIConverters:SubCategoriesSelectionStateColorConverter x:Key="SubCategoriesSelectionStateColorConverter" />
 
             <DataTemplate x:Key="CategoryTemplate">
-                <UIControls:SACustomViewCell  SelectedBackgroundColor="White">
+                <UIControls:SACustomViewCell  SelectedBackgroundColor="Transparent">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
@@ -67,7 +67,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="SubcategoryTemplate">
-                <UIControls:SACustomViewCell  SelectedBackgroundColor="White">
+                <UIControls:SACustomViewCell  SelectedBackgroundColor="Transparent">
                     <Grid Margin="20,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
