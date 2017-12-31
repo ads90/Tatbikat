@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage NavigationPage.HasNavigationBar="False" Title="تطبيقات" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Tatbikat" x:Class="Tatbikat.MainPage" xmlns:UIControls="clr-namespace:Tatbikat.UI">
+<ContentPage NavigationPage.HasNavigationBar="False" Title="تطبيقات" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Tatbikat" x:Class="Tatbikat.MainPage" xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls">
     <ContentPage.BindingContext>
         <vm:MainPageViewModel />
     </ContentPage.BindingContext>
