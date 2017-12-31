@@ -52,7 +52,7 @@ namespace Tatbikat.Droid.Renderers
                 }
                 else
                 {
-                    cellCore.SetBackgroundColor(Color.White.ToAndroid());
+                    cellCore.SetBackgroundColor(Color.Transparent.ToAndroid());
                 }
             }
         }

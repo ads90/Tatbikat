@@ -15,9 +15,10 @@ namespace Tatbikat.ViewModels
         public Command AddiOSAppCommand { get; set; }
         public Command AddAndroidAppCommand { get; set; }
         public Command SelectCategoriesCommand { get; set; }
+
         public AddAppScreenViewModel()
         {
-            AddAndroidAppCommand=new Command(AddAndroidAppCommandFunction);
+            AddAndroidAppCommand = new Command(AddAndroidAppCommandFunction);
             AddiOSAppCommand = new Command(AddiOSAppCommandFunction);
             SelectCategoriesCommand = new Command(SelectCategoriesCommandFunction);
         }
@@ -35,17 +36,23 @@ namespace Tatbikat.ViewModels
             set { RefreshUIProperty(ref _appSearchAndroidText, value); }
 
         }
+        private List<Category> _allSelectedSubcategories;
+        public List<Category> AllSelectedSubcategories
+        {
+            get { return _allSelectedSubcategories; }
+            set { RefreshUIProperty(ref _allSelectedSubcategories, value); }
+        }
         private async void AddAndroidAppCommandFunction()
         {
             Page page = new SelectAppFromStoreScreen(PlatformType.Android);
             var result = await NavigateForResultAsync(page);
             AppSearchAndroidText = result == null ? "" : result.Name;
         }
-       
+
         private async void AddiOSAppCommandFunction()
         {
             Page page = new SelectAppFromStoreScreen(PlatformType.iOS);
-            var result=await NavigateForResultAsync(page);
+            var result = await NavigateForResultAsync(page);
             AppSearchiOSText = result == null ? "" : result.Name;
         }
         async Task<TatbikatApp> NavigateForResultAsync(Page page)
@@ -59,9 +66,15 @@ namespace Tatbikat.ViewModels
         }
         private async void SelectCategoriesCommandFunction()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new CategoriesSelectionScreen());
+            IsLoading = true;
+            var page = new CategoriesSelectionScreen();
+            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+            List<Category> result = await (page.BindingContext as ICallbackEnabledScreen<List<Category>>).Wait();
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+            IsLoading = false;
+            AllSelectedSubcategories = result;
         }
 
-       
+
     }
 }

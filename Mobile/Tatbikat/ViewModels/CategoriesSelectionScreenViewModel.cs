@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Tatbikat.Models;
 using Tatbikat.Models.Enums;
+using Tatbikat.UI.Interfaces;
 using Xamarin.Forms;
 
 namespace Tatbikat.ViewModels
 {
-    public class CategoriesSelectionScreenViewModel : ViewModelsBase
+    public class CategoriesSelectionScreenViewModel : ViewModelsBase, ICallbackEnabledScreen<List<Category>>
     {
         public Command SelectAllSubCategoriesCommand { get; set; }
         public Command SaveCommand { get; set; }
+        TaskCompletionSource<List<Category>> _pageTcs;
         public CategoriesSelectionScreenViewModel()
         {
             SelectAllSubCategoriesCommand = new Command(SelectAllSubCategoriesCommandFunction);
             SaveCommand = new Command(SaveCommandFunction);
+
+            _pageTcs = new TaskCompletionSource<List<Category>>();
 
             Categories = new List<Category>() {
                 new Category(){ID=0,Name="خدمات",ImageSource="https://png.icons8.com/ios/50/267F00/air-pilot-hat-filled.png",SubCategories=new List<Category>(){ new Category() { Name="صيانة منزلية" }, new Category() { Name = "غسيل سيارات" }, new Category() { Name = "توصيل مشاوير" }, new Category() { Name = "صيانة مركبات" }, } },
@@ -23,7 +28,7 @@ namespace Tatbikat.ViewModels
                 new Category(){ID=0,Name="حجوزات",ImageSource="https://png.icons8.com/material/50/267F00/ticket.png",SubCategories=new List<Category>(){ } },
                 new Category(){ID=0,Name="اخرى",ImageSource="https://png.icons8.com/windows/50/267F00/content.png",SubCategories=new List<Category>(){ } }
             };
-            SelectedCategory = Categories.First();
+            //SelectedCategory = Categories.First();
         }
         #region Properties
         private List<string> _salesmanSelectedSubcategories = new List<string>();
@@ -41,7 +46,7 @@ namespace Tatbikat.ViewModels
             {
                 if (value != null)
                 {
-                    
+
                     value.IsSelected = !value.IsSelected;
                 }
 
@@ -50,7 +55,7 @@ namespace Tatbikat.ViewModels
                 RefreshCategorySelectionStatus(SelectedCategory);
                 InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
                 //have to test it more
-                
+
             }
         }
         private Category _selectedCategory;
@@ -94,7 +99,7 @@ namespace Tatbikat.ViewModels
         public bool IsAllSubCategoriesSelected
         {
             get
-            { 
+            {
                 if (SelectedCategory == null || SelectedCategory.SubCategories == null)
                 {
                     return false;
@@ -139,18 +144,33 @@ namespace Tatbikat.ViewModels
 
         private void SaveCommandFunction()
         {
+            List<Category> selectedCategories = Categories.SelectMany(item => item.SubCategories.Where(sub => sub.IsSelected)).ToList();
 
-            List<Category> selectedCategories = Categories.Where(item => item.SelectionStatus != SubCategoriesStatus.NonSelected).ToList();
-
-            for (int catIndex = 0; catIndex < selectedCategories.Count; catIndex++)
+            if (selectedCategories.Count() == 0)
             {
-                selectedCategories[catIndex].SubCategories.RemoveAll(cat => !cat.IsSelected);
+                Application.Current.MainPage.DisplayAlert("تنبيه", "الرجاء اختيار تصنيف واحد واحد عالاقل", "موافق");
+                return;
+            }
+            if (selectedCategories.Count() > 3)
+            {
+                Application.Current.MainPage.DisplayAlert("تنبيه", "لايمكن اختيار اكثر من 3 تصيفات للتطبيق", "موافق");
+                return;
             }
 
-           // _pageTcs?.TrySetResult(selectedCategories);
+            //for (int catIndex = 0; catIndex < selectedCategories.Count; catIndex++)
+            //{
+            //    selectedCategories[catIndex].SubCategories.RemoveAll(cat => !cat.IsSelected);
+            //}
 
+            _pageTcs?.TrySetResult(selectedCategories); 
         }
-
-     
+        public override void NavigateBackRequested()
+        {
+            _pageTcs?.TrySetResult(null);
+        }
+        public Task<List<Category>> Wait()
+        {
+            return _pageTcs.Task;
+        }
     }
 }
