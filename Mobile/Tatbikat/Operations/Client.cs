@@ -64,6 +64,28 @@ namespace Tatbikat.Operations
             });
             return await tcs.Task;
         }
+        public async Task<TReturn> GetAsync<TReturn>(string endPoint)
+        {
+            TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
+
+            await Task.Run(async () =>
+            {
+                try
+                {
+                    HttpResponseMessage responseMessage = await _baseClient.GetAsync(endPoint);
+                    string response = await responseMessage.Content?.ReadAsStringAsync();
+
+                    TReturn obj = FromJson<TReturn>(response);
+
+                    tcs?.TrySetResult(obj);
+                }
+                catch (Exception ex)
+                {
+                    // tcs?.TrySetException(ex);
+                }
+            });
+            return await tcs.Task;
+        }
         //    public async Task<TReturn> PostAsync<TReturn, TContent>(string endPoint, TContent body)
         //    {
         //        TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
