@@ -7,12 +7,12 @@ namespace Tatbikat.Operations
 {
     public partial class Connector
     {
-        public async Task<List<TatbikatApp>> GetApps(string @params)
+        public async Task<List<TatbikatApp>> GetApps()
         {
             try
             {
                 ///search?term=awnak&country=sa&entity=software
-                List<TatbikatApp> apiResult = await Client.GetAsync<List<TatbikatApp>>(Endpoints.Apps.GetAllApps, @params);
+                List<TatbikatApp> apiResult = await Client.GetAsync<List<TatbikatApp>>(Endpoints.Apps.GetAllApps);
                 return apiResult;
             }
             catch (Exception ex)
