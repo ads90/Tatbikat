@@ -18,6 +18,7 @@ namespace Tatbikat.Operations
             InnerHandler = new HttpClientHandler();
             _internetStatus = DependencyService.Get<IInternetStatusService>();
            _baseClient = new HttpClient(this);
+           _baseClient.BaseAddress = new Uri(Endpoints.API_BaseUrl);
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
