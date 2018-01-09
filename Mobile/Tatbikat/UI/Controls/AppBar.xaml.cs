@@ -11,6 +11,7 @@ namespace Tatbikat.UI.Controls
         {
             InitializeComponent();
             IsAddIconVisible = false;
+            IsCategoryIconVisible = false;
         }
         private ContentView _title;
         public ContentView Title
@@ -53,7 +54,29 @@ namespace Tatbikat.UI.Controls
         }
 
         #endregion
+        #region category Icon Properties
+        public bool IsCategoryIconVisible
+        {
+            get { return CategoryIconContainer.IsVisible; }
+            set
+            {
+                CategoryIconContainer.IsVisible = value;
+            }
+        }
+        public static readonly BindableProperty OnCategoryPressedCommandProperty =
+          BindableProperty.Create("OnCategoryPressedCommand", typeof(Command), typeof(AppBar), null);
 
+        public Command OnCategoryPressedCommand
+        {
+            get { return (Command)GetValue(OnCategoryPressedCommandProperty); }
+            set { SetValue(OnCategoryPressedCommandProperty, value); }
+        }
+        void OnCategoryIconTapped(object sender, System.EventArgs e)
+        {
+            OnCategoryPressedCommand?.Execute(null);
+        }
+
+        #endregion
         #region Add Icon Properties
         public bool IsAddIconVisible
         {

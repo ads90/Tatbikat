@@ -9,9 +9,9 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <UIControls:AppBar IsAddIconVisible="true" OnAddPressedCommand="{Binding AddAppCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="false" PageTitleText="تطبيقات" />
-            <Grid Grid.Row="1" RowSpacing="0" InputTransparent="True">
-                <ListView HasUnevenRows="true" ItemsSource="{Binding Apps}">
+            <UIControls:AppBar OnCategoryPressedCommand="{Binding SelectCategoriesCommand}" IsCategoryIconVisible="true"  IsAddIconVisible="true" OnAddPressedCommand="{Binding AddAppCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="false" PageTitleText="تطبيقات" />
+            <Grid Grid.Row="1" RowSpacing="0">
+                <ListView HasUnevenRows="true" ItemsSource="{Binding Apps}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -21,12 +21,31 @@
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
                                     <Grid HorizontalOptions="End" Grid.Column="0">
-                                        <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
                                         <!--Category-->
+                                        <UIControls:SAStackLayout  ItemsSource="{Binding AppCategories}" Grid.Row="1" Orientation="Horizontal">
+                                            <UIControls:SAStackLayout.ItemContent>
+                                                <DataTemplate>
+                                                    <Grid HorizontalOptions="End">
+                                                        <UIControls:SABoxView InputTransparent="True" HeightRequest="10" CornerRadius="50" BackgroundColor="{StaticResource IdentityColor}"/>
+                                                        <Label InputTransparent="True" Margin="5" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="White"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </UIControls:SAStackLayout.ItemContent>
+                                        </UIControls:SAStackLayout>
                                     </Grid>
-                                    <Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
+                                    <Grid Grid.Column="1" >
+                                        <UIControls:SABoxView   CornerRadius="5" BackgroundColor="{StaticResource SilverColor}"/>
+                                        <UIControls:SABoxView   CornerRadius="5" BackgroundColor="White" Margin="1"/>
+                                        <Image WidthRequest="50" HeightRequest="50" Margin="5" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
+                                    </Grid>
+                                    <!--<Frame Margin="0" WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="false" OutlineColor="Silver" CornerRadius="10" Padding="0">
                                         <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                                    </Frame>
+                                    </Frame>-->
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

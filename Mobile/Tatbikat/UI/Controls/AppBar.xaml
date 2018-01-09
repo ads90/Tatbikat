@@ -16,8 +16,7 @@
             </Grid.RowDefinitions>
 
             <!--backicon-->
-            <Grid x:Name="BackIconContainer"
-                  IsVisible="{Binding IsBackButtonVisible}"
+            <Grid x:Name="BackIconContainer" 
                   WidthRequest="40"
                   HeightRequest="40"
                   Margin="10,0,4,0"
@@ -37,8 +36,7 @@
             <!--Add icon-->
              <Grid 
             Grid.Column="2"
-                x:Name="AddIconContainer"
-                  IsVisible="{Binding IsBackButtonVisible}"
+                x:Name="CategoryIconContainer" 
                   WidthRequest="40"
                   HeightRequest="40"
                   Margin="10,0,4,0"
@@ -54,6 +52,28 @@
                     <TapGestureRecognizer Tapped="OnAddIconTapped" />
                 </Grid.GestureRecognizers>
             </Grid>
+
+            <!--category icon-->
+            <Grid 
+            Grid.Column="0"
+                x:Name="AddIconContainer" 
+                  WidthRequest="40"
+                  HeightRequest="40"
+                  Margin="10,0,4,0"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Center">
+                <Image Source="categorize.png"
+                       HeightRequest="25"
+                       Opacity="1"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCategoryIconTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+
+            
             <!--title-->
             <Label x:Name="PageTitle"
                    TextColor="Green "

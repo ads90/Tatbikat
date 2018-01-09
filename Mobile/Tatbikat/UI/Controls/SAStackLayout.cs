@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -17,8 +18,8 @@ namespace Tatbikat.UI.Controls
             _scrollview = new ScrollView()
             {
                 Content = _stacklayout,
-                Padding=0
-                
+                Padding = 0
+
             };
             Content = _scrollview;
         }
@@ -66,6 +67,10 @@ namespace Tatbikat.UI.Controls
                 View view = (View)element.ItemContent.CreateContent();
                 view.BindingContext = child;
                 element._stacklayout.Children.Add(view);
+                if (element._stacklayout.Children.Count > 0)
+                {
+                    Device.BeginInvokeOnMainThread(async () => await element._scrollview.ScrollToAsync(element._stacklayout.Children.Last(), ScrollToPosition.MakeVisible, false));
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Tatbikat.UI.Interfaces;
 using Xamarin.Forms;
 
 namespace Tatbikat.ViewModels
@@ -37,6 +39,14 @@ namespace Tatbikat.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-     
+        public  async Task<T> NavigateForResultAsync<T>(Page page)
+        {
+            IsLoading = true;
+            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+            T result = await (page.BindingContext as ICallbackEnabledScreen<T>).Wait();
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+            IsLoading = false;
+            return result;
+        }
     }
 }
