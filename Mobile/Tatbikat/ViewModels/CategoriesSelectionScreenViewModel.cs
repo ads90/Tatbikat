@@ -15,9 +15,12 @@ namespace Tatbikat.ViewModels
         public Command SelectAllSubCategoriesCommand { get; set; }
         public Command SaveCommand { get; set; }
         TaskCompletionSource<List<Category>> _pageTcs;
-        public CategoriesSelectionScreenViewModel()
+    
+        public bool IsNewApp { get; set; }
+        public CategoriesSelectionScreenViewModel(bool isNewApp)
         {
-            SelectAllSubCategoriesCommand = new Command(SelectAllSubCategoriesCommandFunction);
+            IsNewApp = isNewApp;
+               SelectAllSubCategoriesCommand = new Command(SelectAllSubCategoriesCommandFunction);
             SaveCommand = new Command(SaveCommandFunction);
 
             _pageTcs = new TaskCompletionSource<List<Category>>();
@@ -43,19 +46,26 @@ namespace Tatbikat.ViewModels
         {
             get { return _selectedItemSubCategory; }
             set
-            {
+            {  
                 if (value != null)
                 {
 
                     value.IsSelected = !value.IsSelected;
                 }
-
                 RefreshUIProperty(ref _selectedItemSubCategory, value);
                 _selectedItemSubCategory = null;
                 RefreshCategorySelectionStatus(SelectedCategory);
                 InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
-                //have to test it more
-
+                
+                if (IsNewApp)
+                {
+                    if (Categories.SelectMany(item => item.SubCategories.Where(sub => sub.IsSelected)).Count() > 3)
+                    {
+                        App.Current.MainPage.DisplayAlert(":(", "عفوا لايمكن اختيار اكثر من 3 تصنيفات", "موافق");
+                        value.IsSelected = false;
+                        return;
+                    }
+                }
             }
         }
         private Category _selectedCategory;

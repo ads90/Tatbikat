@@ -15,19 +15,19 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid Margin="5">
+                                <Grid Margin="5" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid HorizontalOptions="End" Grid.Column="0">
+                                    <Grid HorizontalOptions="End" Grid.Column="0"  >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto"/>
                                             <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
                                         <Label Grid.Row="0" FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
                                         <!--Category-->
-                                        <UIControls:SAStackLayout  ItemsSource="{Binding AppCategories}" Grid.Row="1" Orientation="Horizontal">
+                                        <UIControls:SAStackLayout ItemsSource="{Binding AppCategories}" Grid.Row="1" Orientation="Horizontal">
                                             <UIControls:SAStackLayout.ItemContent>
                                                 <DataTemplate>
                                                     <Grid HorizontalOptions="End">

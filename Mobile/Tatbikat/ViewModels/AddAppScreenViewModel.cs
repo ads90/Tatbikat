@@ -35,6 +35,14 @@ namespace Tatbikat.ViewModels
             set { RefreshUIProperty(ref _appSearchAndroidText, value); }
 
         }
+        private List<Category> _appCategories;
+        public List<Category> AppCategories
+        {
+            get { return _appCategories; }
+            set { RefreshUIProperty(ref _appCategories, value); }
+
+        }
+        
         private async void AddAndroidAppCommandFunction()
         {
             Page page = new SelectAppFromStoreScreen(PlatformType.Android);
@@ -59,7 +67,10 @@ namespace Tatbikat.ViewModels
         //}
         private async void SelectCategoriesCommandFunction()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new CategoriesSelectionScreen());
+            //await Application.Current.MainPage.Navigation.PushAsync(new CategoriesSelectionScreen(true));
+            Page page = new CategoriesSelectionScreen(true);
+            var result = await NavigateForResultAsync<List<Category>>(page);
+            AppCategories = result;
         }
 
        

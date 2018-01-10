@@ -10,7 +10,7 @@
         <ResourceDictionary>
             <!--<DynamicUI:DynamicUI x:Key="DynamicUI" />-->
             <UIConverters:SubCategoriesSelectionStateColorConverter x:Key="SubCategoriesSelectionStateColorConverter" />
-
+            <UIConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <DataTemplate x:Key="CategoryTemplate">
                 <UIControls:SACustomViewCell  SelectedBackgroundColor="Transparent">
                     <Grid RowSpacing="0"
@@ -96,11 +96,7 @@
             </DataTemplate>
 
         </ResourceDictionary>
-    </ContentPage.Resources>
-    
-    <ContentPage.BindingContext>
-        <vm:CategoriesSelectionScreenViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.Resources> 
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource BackgroundColor}" Style="{StaticResource iOSPagePadding}">
             <Grid.RowDefinitions>
@@ -123,9 +119,9 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                  
-                    
-                    <Grid Grid.Row="0"  Margin="20,0" HorizontalOptions="Center">
+
+
+                    <Grid Grid.Row="0"  Margin="20,0" HorizontalOptions="Center" IsVisible="{Binding IsNewApp,Converter={StaticResource InverseBooleanConverter}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />

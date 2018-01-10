@@ -71,6 +71,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\SABoxViewRenderer.cs" />
     <Compile Include="Renderers\SACustomViewCellRenderer.cs" />
+    <Compile Include="Renderers\SAVisualElementRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PlatformServices\InternetStatusService.cs" />
