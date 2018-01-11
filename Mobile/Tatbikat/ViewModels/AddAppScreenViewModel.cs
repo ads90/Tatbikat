@@ -17,7 +17,7 @@ namespace Tatbikat.ViewModels
         public Command SelectCategoriesCommand { get; set; }
         public AddAppScreenViewModel()
         {
-            AddAndroidAppCommand=new Command(AddAndroidAppCommandFunction);
+            AddAndroidAppCommand = new Command(AddAndroidAppCommandFunction);
             AddiOSAppCommand = new Command(AddiOSAppCommandFunction);
             SelectCategoriesCommand = new Command(SelectCategoriesCommandFunction);
         }
@@ -39,40 +39,44 @@ namespace Tatbikat.ViewModels
         public List<Category> AppCategories
         {
             get { return _appCategories; }
-            set { RefreshUIProperty(ref _appCategories, value); }
-
+            set
+            {
+                RefreshUIProperty(ref _appCategories, value);
+                if (value!=null && value.Count > 0)
+                {
+                    ShouldReceiveTouch = false;
+                }
+            }
         }
-        
+
+        private bool _shouldReceiveTouch=true;
+        public bool ShouldReceiveTouch
+        {
+            get { return _shouldReceiveTouch; }
+            set { RefreshUIProperty(ref _shouldReceiveTouch, value); }
+        }
+
         private async void AddAndroidAppCommandFunction()
         {
             Page page = new SelectAppFromStoreScreen(PlatformType.Android);
             var result = await NavigateForResultAsync<TatbikatApp>(page);
             AppSearchAndroidText = result == null ? "" : result.Name;
         }
-       
+
         private async void AddiOSAppCommandFunction()
         {
             Page page = new SelectAppFromStoreScreen(PlatformType.iOS);
-            var result=await NavigateForResultAsync<TatbikatApp>(page);
+            var result = await NavigateForResultAsync<TatbikatApp>(page);
             AppSearchiOSText = result == null ? "" : result.Name;
         }
-        //async Task<TatbikatApp> NavigateForResultAsync(Page page)
-        //{
-        //    IsLoading = true;
-        //    await Application.Current.MainPage.Navigation.PushModalAsync(page);
-        //    TatbikatApp result = await (page.BindingContext as ICallbackEnabledScreen<TatbikatApp>).Wait();
-        //    await Application.Current.MainPage.Navigation.PopModalAsync();
-        //    IsLoading = false;
-        //    return result;
-        //}
+      
         private async void SelectCategoriesCommandFunction()
         {
-            //await Application.Current.MainPage.Navigation.PushAsync(new CategoriesSelectionScreen(true));
-            Page page = new CategoriesSelectionScreen(true);
+             Page page = new CategoriesSelectionScreen(true);
             var result = await NavigateForResultAsync<List<Category>>(page);
             AppCategories = result;
         }
 
-       
+
     }
 }
