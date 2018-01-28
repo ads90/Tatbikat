@@ -16,6 +16,14 @@ namespace TatbikatAPI.DatabaseOperations
             _mainDatabaseConnectionString = MainDatabaseConnectionString;
 
         }
+        /*
+            TODOs
+            GetAllApps Done
+            GetAllCategories
+            GetSpeceficAppFromiOSStore =>parms(appname,platform)
+            GetSpeceficAppFromiOSAndroidStore(appname, platform)
+            PostNewApp
+            */
         public List<TatbikatApp> GetAllApps()
         {
             List<TatbikatApp> _tatbikatApp = new List<TatbikatApp>();
