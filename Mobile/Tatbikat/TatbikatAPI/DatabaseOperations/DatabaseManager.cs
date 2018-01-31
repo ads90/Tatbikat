@@ -48,5 +48,29 @@ namespace TatbikatAPI.DatabaseOperations
 
             return _tatbikatApp;
         }
+        public List<Category> GetAllCategortries()
+        {
+            List<Category> _categortries = new List<Category>();
+            using (SqlConnection sqlConn = new SqlConnection(_mainDatabaseConnectionString))
+            {
+                using (SqlCommand sqlCommand = new SqlCommand("select * from [dbo].[Category]", sqlConn))
+                {
+
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlConn.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string JSONString = string.Empty;
+                            _categortries = JsonConvert.DeserializeObject<IList<Category>>(reader.GetString(0)).ToList();
+                        }
+                    }
+                    sqlConn.Close();
+                }
+            }
+
+            return _categortries;
+        }
     }
 }

@@ -17,11 +17,17 @@ namespace TatbikatAPI.Controllers
         }
        
         //if we want to make route    [HttpGet("getall")]
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("getallapps")]
+        public IActionResult GetAllApps()
         {
             return Ok(_dbm.GetAllApps());
         }
- 
+
+        [HttpGet("getallcategortries")]
+        public IActionResult GetAllCategortries()
+        {
+            return Ok(_dbm.GetAllCategortries());
+        }
+
     }
 }
