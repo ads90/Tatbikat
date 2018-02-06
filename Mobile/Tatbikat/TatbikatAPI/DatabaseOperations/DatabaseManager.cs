@@ -53,17 +53,17 @@ namespace TatbikatAPI.DatabaseOperations
             List<Category> _categortries = new List<Category>();
             using (SqlConnection sqlConn = new SqlConnection(_mainDatabaseConnectionString))
             {
-                using (SqlCommand sqlCommand = new SqlCommand("select * from [dbo].[Category]", sqlConn))
+                using (SqlCommand sqlCommand = new SqlCommand("[dbo].[GetAllCategortries]", sqlConn))
                 {
 
-                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                     sqlConn.Open();
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             string JSONString = string.Empty;
-                            _categortries = JsonConvert.DeserializeObject<IList<Category>>(reader.GetString(0)).ToList();
+                            _categortries = JsonConvert.DeserializeObject<IList<Category>>(reader.GetString(0)).Where(c=>c.SubCategory.c.ToList();
                         }
                     }
                     sqlConn.Close();

@@ -24,10 +24,10 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        public List<Category> SubCategories
+        public IList<Category> SubCategory
         {
             get;
             set;
-        }
+        } = null;
     }
 }
