@@ -123,6 +123,7 @@
     <BundleResource Include="Resources\plusicon.png" />
     <BundleResource Include="Resources\androidicon.png" />
     <BundleResource Include="Resources\filtericon.png" />
+    <BundleResource Include="Resources\categorize.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
