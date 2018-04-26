@@ -8,7 +8,7 @@ namespace TatbikatAPI.Models
 {
     public class Category
     {
-        public int ID
+        public int Id
         {
             get;
             set;
@@ -24,6 +24,7 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
+        //if sub is null means cat is sub
         public IList<Category> SubCategory
         {
             get;

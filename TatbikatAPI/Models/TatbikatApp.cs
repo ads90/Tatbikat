@@ -17,7 +17,7 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        public string ImageSource
+        public string Image
         {
             get;
             set;
@@ -46,11 +46,12 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        public List<Category> AppCategories
+        public List<Category> category
         {
             get;
             set;
         }
+       
         public string AppDescription
         {
             get;

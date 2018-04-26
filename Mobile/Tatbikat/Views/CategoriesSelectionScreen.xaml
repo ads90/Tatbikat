@@ -48,7 +48,7 @@
                                 </Grid.RowDefinitions>
                                 <Image Grid.Row="0"
                                        HeightRequest="50"
-                                       Source="{Binding ImageSource}"
+                                       Source="{Binding Image}"
                                        Aspect="AspectFit"
                                        HorizontalOptions="Center" />
                                 <Label Grid.Row="1"
@@ -145,12 +145,12 @@
                       
                     </Grid>
 
-                    <ListView Grid.Row="1"
+                    <ListView Grid.Row="1" IsRefreshing="{Binding IsLoading}"
                           SeparatorColor="Silver"
                           SeparatorVisibility="None"
                           BackgroundColor="Transparent"
                           SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}"
-                          ItemsSource="{Binding SelectedCategory.SubCategories}"
+                          ItemsSource="{Binding SelectedCategory.SubCategory}"
                           ItemTemplate="{StaticResource SubcategoryTemplate}">
 
                         <!--<ListView.Behaviors>

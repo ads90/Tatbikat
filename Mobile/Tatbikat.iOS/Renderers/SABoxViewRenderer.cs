@@ -14,26 +14,10 @@ namespace Tatbikat.iOS.Renderers
 {
     public class SABoxViewRenderer : BoxRenderer
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<BoxView> e)
+        public override void WillDrawLayer(CALayer layer)
         {
-            base.OnElementChanged(e);
-
-            if (Element != null)
-            {
-                Layer.MasksToBounds = true;
-                e.NewElement.SizeChanged += (sender, er) => { UpdateCornerRadius(Element as SABoxView); };
-                UpdateCornerRadius(Element as SABoxView);
-            }
-        }
-
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            base.OnElementPropertyChanged(sender, e);
-
-            if (e.PropertyName == SABoxView.CornerRadiusProperty.PropertyName)
-            {
-                UpdateCornerRadius(Element as SABoxView);
-            }
+            UpdateCornerRadius(Element as SABoxView);
+            base.WillDrawLayer(layer);
         }
 
         void UpdateCornerRadius(SABoxView box)
@@ -41,10 +25,19 @@ namespace Tatbikat.iOS.Renderers
             if (box.IsCircular)
             {
                 Layer.CornerRadius = (nfloat)box.Width / 2;
+                UIBezierPath maskPath = UIBezierPath.FromRoundedRect(this.Bounds, UIRectCorner.AllCorners, new CGSize(Layer.CornerRadius, Layer.CornerRadius));
+                CAShapeLayer maskLayer = new CAShapeLayer();
+                maskLayer.Frame = this.Bounds;
+                maskLayer.Path = maskPath.CGPath;
+                NativeView.Layer.Mask = maskLayer;
             }
             else
             {
-                Layer.CornerRadius = (nfloat)box.CornerRadius;
+                UIBezierPath maskPath = UIBezierPath.FromRoundedRect(this.Bounds,UIRectCorner.AllCorners , new CGSize(box.CornerRadius, box.CornerRadius));
+                CAShapeLayer maskLayer = new CAShapeLayer();
+                maskLayer.Frame = this.Bounds;
+                maskLayer.Path = maskPath.CGPath;
+                NativeView.Layer.Mask = maskLayer;
             }
         }
     }

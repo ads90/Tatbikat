@@ -20,6 +20,19 @@ namespace Tatbikat.Operations
                 throw ex;
             }
         }
+        
+        public async Task<List<Category>> GetAllCategories()
+        {
+            try
+            {
+                List<Category> apiResult = await Client.GetAsync<List<Category>>(Endpoints.Apps.GetAllCategories);
+                return apiResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async Task<List<TatbikatApp>> PostNewApp(string @params)
         {
             try

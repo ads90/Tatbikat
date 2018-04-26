@@ -17,12 +17,13 @@ namespace Tatbikat.Models
             get;
             set;
         }
-        public string ImageSource
+        public string Image
         {
             get;
             set;
         }
-        public List<Category> SubCategories
+        //if sub is null means cat is sub 
+        public List<Category> SubCategory
         {
             get;
             set;

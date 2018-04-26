@@ -103,7 +103,7 @@ namespace Tatbikat.ViewModels
                 HttpUtility.HtmlDecode(appdescriptiontex.InnerHtml, myWriter);
 
 
-                AppSearchResult.Add(new TatbikatApp() { AppDescription = myWriter.ToString(), Name = appnametext, ImageSource = appimagetext });
+                AppSearchResult.Add(new TatbikatApp() { AppDescription = myWriter.ToString(), Name = appnametext, Image = appimagetext });
             }
             IsLoading = false;
         }

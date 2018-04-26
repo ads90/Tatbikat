@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Tatbikat.Models
@@ -10,22 +11,12 @@ namespace Tatbikat.Models
             get;
             set;
         }
-        public int IDForIOSApp
-        {
-            get;
-            set;
-        }
         public string Name
         {
             get;
             set;
         }
-        public string ImageSource
-        {
-            get;
-            set;
-        }
-        public string AndroidStoreLink
+        public string Image
         {
             get;
             set;
@@ -35,6 +26,26 @@ namespace Tatbikat.Models
             get;
             set;
         }
+        public string AndroidStoreLink
+        {
+            get;
+            set;
+        }
+        public DateTime DateAdded { get; set; }
+        public bool IsVerified { get; set; }
+        public DateTime DateVerified { get; set; }
+
+        public int IDForIOSApp
+        {
+            get;
+            set;
+        }
+        public int IDForAndroidApp
+        {
+            get;
+            set;
+        }
+        [JsonProperty("category")]
         public List<Category> AppCategories
         {
             get;
@@ -45,6 +56,5 @@ namespace Tatbikat.Models
             get;
             set;
         }
-
     }
 }

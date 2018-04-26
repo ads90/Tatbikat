@@ -7,7 +7,7 @@ using TatbikatAPI.DatabaseOperations;
 
 namespace TatbikatAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     public class TatbikatController : Microsoft.AspNetCore.Mvc.Controller  
     {
         private readonly DatabaseManager _dbm;
@@ -16,7 +16,7 @@ namespace TatbikatAPI.Controllers
             _dbm = dbm; 
         }
        
-        //if we want to make route    [HttpGet("getall")]
+        //if we want to make route [HttpGet("getall")]
         [HttpGet("getallapps")]
         public IActionResult GetAllApps()
         {

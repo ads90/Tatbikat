@@ -8,8 +8,10 @@ namespace Tatbikat.Operations
 
         public class Apps
         {
-            public const string GetAllApps = "App/GetAllApps";
-            public const string PostNewApp = "App/AddApp";
+            public const string GetAllApps = "GetAllApps";
+            public const string GetAllCategories = "GetAllCategortries";
+            public const string PostNewApp = "AddApp";
+
         }
     }
 }

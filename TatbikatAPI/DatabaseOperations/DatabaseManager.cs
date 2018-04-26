@@ -38,8 +38,8 @@ namespace TatbikatAPI.DatabaseOperations
                     {
                         while (reader.Read())
                         {
-                            string JSONString = string.Empty;
-                            _tatbikatApp = JsonConvert.DeserializeObject<IList<TatbikatApp>>(reader.GetString(0)).ToList();
+                            string JSONString = reader.GetString(0);
+                            _tatbikatApp = JsonConvert.DeserializeObject<IList<TatbikatApp>>(JSONString).ToList();
                         }
                     }
                     sqlConn.Close();

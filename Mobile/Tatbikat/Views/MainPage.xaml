@@ -11,11 +11,16 @@
             </Grid.RowDefinitions>
             <UIControls:AppBar OnCategoryPressedCommand="{Binding SelectCategoriesCommand}" IsCategoryIconVisible="true"  IsAddIconVisible="true" OnAddPressedCommand="{Binding AddAppCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="false" PageTitleText="تطبيقات" />
             <Grid Grid.Row="1" RowSpacing="0">
-                <ListView HasUnevenRows="true" ItemsSource="{Binding Apps}" >
+                <ListView IsRefreshing="{Binding IsLoading}"  HasUnevenRows="true" SeparatorVisibility="None" ItemsSource="{Binding FilteredApps}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid Margin="5" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="1"/>
+                                    </Grid.RowDefinitions> 
+                                <Grid VerticalOptions="Center" Grid.Row="0" Margin="5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
@@ -27,26 +32,30 @@
                                         </Grid.RowDefinitions>
                                         <Label Grid.Row="0" FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
                                         <!--Category-->
-                                        <UIControls:SAStackLayout ItemsSource="{Binding AppCategories}" Grid.Row="1" Orientation="Horizontal">
+                                            <UIControls:SAStackLayout ItemsSource="{Binding AppCategories}" Grid.Row="1" Orientation="Horizontal">
                                             <UIControls:SAStackLayout.ItemContent>
                                                 <DataTemplate>
                                                     <Grid HorizontalOptions="End" >
                                                         <UIControls:SABoxView HeightRequest="10" InputTransparent="True"  CornerRadius="25" BackgroundColor="{StaticResource IdentityColor}"/>
                                                         <UIControls:SABoxView HeightRequest="10" InputTransparent="True" Margin="1" CornerRadius="25" BackgroundColor="White"/>
-                                                        <Label  FontSize="Small"  Margin="0" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource IdentityColor}"/>
+                                                        <Label  FontSize="Small"  Margin="2" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource IdentityColor}"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </UIControls:SAStackLayout.ItemContent>
                                         </UIControls:SAStackLayout>
                                     </Grid>
-                                    <!--<Grid Grid.Column="1" VerticalOptions="Center">
-                                        <UIControls:SABoxView WidthRequest="50"  CornerRadius="10" BackgroundColor="{StaticResource SilverColor}"/>
-                                        <UIControls:SABoxView WidthRequest="50"  CornerRadius="10" BackgroundColor="White" Margin="1"/>
-                                        <Image WidthRequest="50" HeightRequest="50" Margin="1"  VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                                    </Grid>-->
-                                    <Frame Margin="0"  VerticalOptions="Center" HorizontalOptions="Center"   WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="True" OutlineColor="Black" CornerRadius="10" Padding="0">
+
+                                    <Grid VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" >
+                                        <UIControls:SABoxView HeightRequest="10" InputTransparent="True"  CornerRadius="10" BackgroundColor="Silver"/>
+                                        <UIControls:SABoxView HeightRequest="10" InputTransparent="True" Margin="1" CornerRadius="10" BackgroundColor="White"/>
+                                        <Image WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="2" HorizontalOptions="Center" Source="{Binding Image}" />
+                                    </Grid>
+                                    <!--<Frame Margin="0"  VerticalOptions="Center" HorizontalOptions="Center"   WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="True" OutlineColor="Black" CornerRadius="10" Padding="0">
                                         <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                                    </Frame>
+                                    </Frame>-->
+                                  
+                                </Grid>
+                                <BoxView  BackgroundColor="Silver" Grid.Row="1"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
