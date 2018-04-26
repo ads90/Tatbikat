@@ -63,9 +63,7 @@ namespace TatbikatAPI.DatabaseOperations
                         while (reader.Read())
                         {
                             string JSONString = string.Empty;
-                            var categories = JsonConvert.DeserializeObject<IList<Category>>(reader.GetString(0));
-                            
-                            _categortries = categories.ToList();
+                            _categortries = JsonConvert.DeserializeObject<IList<Category>>(reader.GetString(0)).ToList();//.Where(c=>c.SubCategory.ToList());
                         }
                     }
                     sqlConn.Close();
