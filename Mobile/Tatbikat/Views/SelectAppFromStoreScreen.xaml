@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage 
-    xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" 
-    NavigationPage.HasNavigationBar="False"
-    xmlns:vm="clr-namespace:Tatbikat.ViewModels"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Tatbikat.Views.SelectAppFromStoreScreen">
+<ContentPage xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" NavigationPage.HasNavigationBar="False" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.Views.SelectAppFromStoreScreen">
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource BackgroundColor}" Style="{StaticResource iOSPagePadding}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <UIControls:AppBar Grid.Row="0" VerticalOptions="Center" OnBackPressedCommand="{Binding BackCommand}" x:Name="appBar"/>
+            <UIControls:AppBar Grid.Row="0" VerticalOptions="Center" OnBackPressedCommand="{Binding BackCommand}" x:Name="appBar" />
             <Grid Grid.Row="1" RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -28,7 +22,7 @@
                     </Grid>
                     <Entry x:Name="AppSearchText" HorizontalTextAlignment="End" Grid.Column="1" Placeholder="الرجاء كتابة اسم التطبيق" />
                 </Grid>
-                <ListView  SelectedItem="{Binding SelectedApp}" HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
+                <ListView IsRefreshing="{Binding IsLoading}" SelectedItem="{Binding SelectedApp}" HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -42,12 +36,11 @@
                                             <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}" LineBreakMode="TailTruncation" />
                                             <Label FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding AppDescription}" LineBreakMode="TailTruncation" />
                                         </StackLayout>
-                                       <!-- <Frame Margin="0" VerticalOptions="Fill" WidthRequest="50" HeightRequest="50" Grid.Column="1"  OutlineColor="Silver"  Padding="0">-->
-
+                                        <!-- <Frame Margin="0" VerticalOptions="Fill" WidthRequest="50" HeightRequest="50" Grid.Column="1"  OutlineColor="Silver"  Padding="0">-->
                                         <Grid Grid.Column="1">
-                                                <Image   WidthRequest="50" HeightRequest="50"  Source="{Binding ImageSource}" />
-                                            </Grid>
-<!--                                        </Frame>-->
+                                            <Image WidthRequest="50" HeightRequest="50" Source="{Binding Image}" />
+                                        </Grid>
+                                        <!--                                        </Frame>-->
                                     </Grid>
                                     <BoxView VerticalOptions="End" HeightRequest="1" BackgroundColor="Black" Opacity="0.6" />
                                 </Grid>
@@ -56,7 +49,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
-            <UIControls:LoadingOverlay IsRunning="{Binding IsLoading}" Grid.RowSpan="2" />
+            <!--<UIControls:LoadingOverlay IsRunning="{Binding IsLoading}" Grid.RowSpan="2" />-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

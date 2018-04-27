@@ -22,8 +22,9 @@ namespace Tatbikat.ViewModels
         {
             SelectCategoriesCommand = new Command(SelectCategoriesCommandFunctionAsync);
             AddAppCommand = new Command(AddAppCommandFunction);
-
             GetAppsAsync();
+
+
         }
 
         private async void SelectCategoriesCommandFunctionAsync()
@@ -31,6 +32,10 @@ namespace Tatbikat.ViewModels
             Page page = new CategoriesSelectionScreen(false);
             List<Category> result = await NavigateForResultAsync<List<Category>>(page);
             FilteredApps = new List<TatbikatApp>();
+            if(result==null||result.Count()==0)
+            {
+                return;
+            }
             foreach (Category cat in result)
             {
                 //    FilteredApps = this.Apps.ta(a=>a.AppCategories.Exists(app=>app.ID==cat.ID)).ToList();
@@ -40,11 +45,7 @@ namespace Tatbikat.ViewModels
                     FilteredApps.Add(item);
                 }
             }
-            
-             
         }
-
-        
 
         private async void GetAppsAsync()
         {
