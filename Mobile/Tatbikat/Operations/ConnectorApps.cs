@@ -20,7 +20,7 @@ namespace Tatbikat.Operations
                 throw ex;
             }
         }
-        
+
         public async Task<List<Category>> GetAllCategories()
         {
             try
@@ -33,13 +33,13 @@ namespace Tatbikat.Operations
                 throw ex;
             }
         }
-        public async Task<List<TatbikatApp>> PostNewApp(string @params)
+        public async Task PostNewApp(TatbikatApp @params)
         {
             try
             {
                 ///search?term=awnak&country=sa&entity=software
-                List<TatbikatApp> apiResult = await Client.GetAsync<List<TatbikatApp>>(Endpoints.Apps.PostNewApp, @params);
-                return apiResult;
+                await Client.PostAsync<TatbikatApp>(Endpoints.Apps.PostNewApp, @params);
+                // return apiResult;
             }
             catch (Exception ex)
             {

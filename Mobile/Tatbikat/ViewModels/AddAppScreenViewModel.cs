@@ -64,13 +64,25 @@ namespace Tatbikat.ViewModels
 
         private async void SumbitNewAppCommandFunction()
         {
-            //note here i'm taking iOS app to be submitted as final app and add android line to it
+            if (IOSApp?.IOSStoreLink == null || AndroidApp?.AndroidStoreLink == null || AppCategories == null)
+            {
+                await App.Current.MainPage.DisplayAlert("خطا", "الرجاء ادخال كافة البيانات", "موافق");
+                return;
+            }
             IsLoading = true;
+            IOSApp.AppCategories = new List<Category>();
+            foreach(var category in AppCategories)
+            {
+                IOSApp.AppCategories.Add(category);
+            }
+            //note here i'm taking iOS app to be submitted as final app and add android line to it
             IOSApp.AndroidStoreLink = AndroidApp.AndroidStoreLink;
             //here must add the datetime from back end
             IOSApp.DateAdded = DateTime.Now;
-            //await Connector.Current.GetApps();
+            await Connector.Current.PostNewApp(IOSApp);
             IsLoading = false;
+            await App.Current.MainPage.DisplayAlert("تم ارسال التطبيق", "سيتم عرض التطبيق لدينا بعد التاكد من صحة البيانات", "موافق");
+            await App.Current.MainPage.Navigation.PopAsync();
         }
 
         private async void AddAndroidAppCommandFunction()

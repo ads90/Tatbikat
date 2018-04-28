@@ -12,18 +12,16 @@ namespace Tatbikat.ViewModels
 {
     public class MainPageViewModel : ViewModelsBase
     {
-        public Command AddAppCommand
-        {
-            get;
-            set;
-        }
+        public Command AddAppCommand { get; set; }
         public Command SelectCategoriesCommand { get; set; }
+        public Command RefreshAppsListCommand { get; set; }
+
         public MainPageViewModel()
         {
             SelectCategoriesCommand = new Command(SelectCategoriesCommandFunctionAsync);
             AddAppCommand = new Command(AddAppCommandFunction);
             GetAppsAsync();
-
+            RefreshAppsListCommand = new Command(() => GetAppsAsync());
 
         }
 
@@ -31,15 +29,18 @@ namespace Tatbikat.ViewModels
         {
             Page page = new CategoriesSelectionScreen(false);
             List<Category> result = await NavigateForResultAsync<List<Category>>(page);
-            FilteredApps = new List<TatbikatApp>();
-            if(result==null||result.Count()==0)
+
+            if (result == null || result.Count() == 0)
             {
+                //return to select all apps
+                FilteredApps = this.Apps;
                 return;
             }
+            FilteredApps = new List<TatbikatApp>();
             foreach (Category cat in result)
             {
                 //    FilteredApps = this.Apps.ta(a=>a.AppCategories.Exists(app=>app.ID==cat.ID)).ToList();
-                var item = Apps.Where((a) => a.AppCategories.Any(c => c.ID ==cat.ID)).FirstOrDefault();
+                var item = Apps.Where((a) => a.AppCategories.Any(c => c.ID == cat.ID)).FirstOrDefault();
                 if (item != null)
                 {
                     FilteredApps.Add(item);
@@ -47,18 +48,22 @@ namespace Tatbikat.ViewModels
             }
         }
 
-        private async void GetAppsAsync()
+        private void GetAppsAsync()
         {
             IsLoading = true;
-            Apps = await Connector.Current.GetApps();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                Apps = await Connector.Current.GetApps();
+            });
             IsLoading = false;
+
         }
 
         private async void AddAppCommandFunction()
         {
             await Application.Current.MainPage.Navigation.PushAsync(new AddAppScreen());
         }
-        
+
         private List<TatbikatApp> _apps;
         public List<TatbikatApp> Apps
         {

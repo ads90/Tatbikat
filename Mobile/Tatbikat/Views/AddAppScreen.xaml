@@ -168,7 +168,7 @@
                     </UIControls:TappingArea>
                 </UIControls:SAFrame>
 
-                <Button Margin="0,0,0,20" Grid.Row="3" HeightRequest="40" VerticalOptions="End" Text="ارسال" BackgroundColor="{StaticResource IdentityColor}" TextColor="White"/>
+                <Button Margin="0,0,0,20" Grid.Row="3" Command="{Binding SumbitNewAppCommand}" HeightRequest="40" VerticalOptions="End" Text="ارسال" BackgroundColor="{StaticResource IdentityColor}" TextColor="White"/>
             </Grid>
         </Grid>
     </ContentPage.Content>

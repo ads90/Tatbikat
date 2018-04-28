@@ -22,12 +22,12 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        public string IOSStoreLink
+        public string IosUrl
         {
             get;
             set;
         }
-        public string AndroidStoreLink
+        public string AndroidUrl
         {
             get;
             set;
@@ -46,12 +46,12 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        public List<Category> category
+        public List<Category> Category
         {
             get;
             set;
         }
-       
+        [Newtonsoft.Json.JsonIgnore]
         public string AppDescription
         {
             get;

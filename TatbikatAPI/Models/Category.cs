@@ -18,12 +18,13 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        [JsonProperty("IMAGE")]
+        [JsonProperty("Image")]
         public string ImageSource
         {
             get;
             set;
         }
+       
         //if sub is null means cat is sub
         public IList<Category> SubCategory
         {

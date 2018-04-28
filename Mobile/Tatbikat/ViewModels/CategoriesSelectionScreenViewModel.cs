@@ -24,7 +24,7 @@ namespace Tatbikat.ViewModels
             SelectAllSubCategoriesCommand = new Command(SelectAllSubCategoriesCommandFunction);
             SaveCommand = new Command(SaveCommandFunction);
 
-            _pageTcs = new TaskCompletionSource<List<Category>>(); 
+            _pageTcs = new TaskCompletionSource<List<Category>>();
 
             GetAllCategoriesAsync();
         }
@@ -33,6 +33,12 @@ namespace Tatbikat.ViewModels
         {
             IsLoading = true;
             Categories = await Connector.Current.GetAllCategories();
+            if (Categories == null)
+            {
+                IsLoading = false;
+                await App.Current.MainPage.DisplayAlert("خطا", "حدث خطا", "موافق");
+                return;
+            }
             SelectedCategory = Categories.FirstOrDefault();
             IsLoading = false;
         }
@@ -158,7 +164,7 @@ namespace Tatbikat.ViewModels
         private void SaveCommandFunction()
         {
             List<Category> selectedCategories = Categories.SelectMany(item => item.SubCategory.Where(sub => sub.IsSelected)).ToList();
-             if (selectedCategories.Count() == 0)
+            if (selectedCategories.Count() == 0)
             {
                 Application.Current.MainPage.DisplayAlert("تنبيه", "الرجاء اختيار تصنيف واحد واحد عالاقل", "موافق");
                 return;
@@ -171,7 +177,7 @@ namespace Tatbikat.ViewModels
                     return;
                 }
             }
-            
+
             _pageTcs?.TrySetResult(selectedCategories);
         }
         public override void NavigateBackRequested()

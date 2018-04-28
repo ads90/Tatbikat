@@ -34,13 +34,18 @@ namespace TatbikatAPI.DatabaseOperations
 
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                     sqlConn.Open();
+                    sqlCommand.ExecuteNonQuery();
+
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
+                        string JSONString = string.Empty;
                         while (reader.Read())
                         {
-                            string JSONString = string.Empty;
-                            _tatbikatApp = JsonConvert.DeserializeObject<IList<TatbikatApp>>(reader.GetString(0)).ToList();
+
+                            JSONString += reader.GetString(0);
                         }
+
+                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).ToList();
                     }
                     sqlConn.Close();
                 }
@@ -79,7 +84,7 @@ namespace TatbikatAPI.DatabaseOperations
                 //                string inserQuery=$"BEGIN TRANSACTION insert into app values({app.Name},{app.Image},{app.IOSStoreLink},{app.AndroidStoreLink},GETDATE(),0,null)" +
                 //                    "declare @lastid int=SCOPE_IDENTITY()
                 //insert into appcategory values(SCOPE_IDENTITY(),2)"
-              //  using (SqlCommand sqlCommand = new SqlCommand())
+                //  using (SqlCommand sqlCommand = new SqlCommand())
                 {
                     sqlconn.Open();
                     SqlCommand sqlCommand = sqlconn.CreateCommand();
@@ -90,22 +95,22 @@ namespace TatbikatAPI.DatabaseOperations
 
                     try
                     {
-                        sqlCommand.CommandText = $"insert into app values('{app.Name}','{app.Image}','{app.IOSStoreLink}','{app.AndroidStoreLink}',GETDATE(),0,null)";
+                        sqlCommand.CommandText = $"insert into app values('{app.Name}','{app.Image}','{app.IosUrl}','{app.AndroidUrl}',GETDATE(),0,null)";
                         sqlCommand.ExecuteNonQuery();
 
                         sqlCommand.CommandText = "select SCOPE_IDENTITY()";
-                        var uniqueAppID=sqlCommand.ExecuteScalar();
+                        var uniqueAppID = sqlCommand.ExecuteScalar();
 
-                        foreach(var category in app.category)
+                        foreach (var category in app.Category)
                         {
                             sqlCommand.CommandText = $"insert into appcategory values({uniqueAppID},{category.Id})";
-                            sqlCommand.ExecuteNonQuery();
                         }
-                     
+
                         // Attempt to commit the transaction.
                         transaction.Commit();
                         Console.WriteLine("successed written to database.");
 
+                        sqlconn.Close();
                     }
 
                     catch (Exception ex)
@@ -126,6 +131,7 @@ namespace TatbikatAPI.DatabaseOperations
                             Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
                             Console.WriteLine("  Message: {0}", ex2.Message);
                         }
+                        sqlconn.Close();
                     }
 
                     sqlconn.Open();

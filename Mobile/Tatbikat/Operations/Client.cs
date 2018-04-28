@@ -6,6 +6,7 @@ using Tatbikat.UI.Interfaces;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Tatbikat.Operations
 {
@@ -17,8 +18,8 @@ namespace Tatbikat.Operations
         {
             InnerHandler = new HttpClientHandler();
             _internetStatus = DependencyService.Get<IInternetStatusService>();
-           _baseClient = new HttpClient(this);
-           _baseClient.BaseAddress = new Uri(Endpoints.API_BaseUrl);
+            _baseClient = new HttpClient(this);
+            _baseClient.BaseAddress = new Uri(Endpoints.API_BaseUrl);
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -33,10 +34,17 @@ namespace Tatbikat.Operations
                     });
                 }
 
-                    response = await base.SendAsync(request, cancellationToken); 
+                response = await base.SendAsync(request, cancellationToken);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                    await App.Current.MainPage.DisplayAlert("خطا", "Error " + response.StatusCode.ToString(), "موافق");
+                    });
+                }
                 return response;
             }
-            
+
             catch (Exception nce)
             {
                 throw nce;
@@ -46,34 +54,12 @@ namespace Tatbikat.Operations
         public async Task<TReturn> GetAsync<TReturn>(string endPoint, string @params)
         {
             TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
-          
+
             await Task.Run(async () =>
             {
                 try
                 {
                     HttpResponseMessage responseMessage = await _baseClient.GetAsync(endPoint + @params);
-                    string response = await responseMessage.Content?.ReadAsStringAsync();
-                   
-                    TReturn obj = FromJson<TReturn>(response);
-
-                    tcs?.TrySetResult(obj);
-                }
-                catch (Exception ex)
-                {
-                   // tcs?.TrySetException(ex);
-                }
-            });
-            return await tcs.Task;
-        }
-        public async Task<TReturn> GetAsync<TReturn>(string endPoint)
-        {
-            TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
-
-            await Task.Run(async () =>
-            {
-                try
-                {
-                    HttpResponseMessage responseMessage = await _baseClient.GetAsync(endPoint);
                     string response = await responseMessage.Content?.ReadAsStringAsync();
 
                     TReturn obj = FromJson<TReturn>(response);
@@ -87,27 +73,52 @@ namespace Tatbikat.Operations
             });
             return await tcs.Task;
         }
-        //    public async Task<TReturn> PostAsync<TReturn, TContent>(string endPoint, TContent body)
-        //    {
-        //        TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
+        public async Task<TReturn> GetAsync<TReturn>(string endPoint)
+        {
+            TaskCompletionSource<TReturn> tcs = new TaskCompletionSource<TReturn>();
 
-        //        await Task.Run(async () =>
-        //        {
-        //            try
-        //            {
-        //                TReturn res = await InternalPostAsync<TReturn, TContent>(endPoint, body, new Dictionary<string, object>());
-        //                tcs?.TrySetResult(res);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                ex.Trace(TraceOptions.Local, endPoint);
-        //                tcs?.TrySetException(ex);
-        //            }
-        //        });
-        //        return await tcs.Task;
+            await Task.Run(async () =>
+            {
+                try
+                {
+                    HttpResponseMessage responseMessage = await _baseClient.GetAsync(endPoint);
+                    if (!responseMessage.IsSuccessStatusCode )
+                    {
+                        throw new Exception($"GET Request failed, Status Code: '{responseMessage.StatusCode}");
+                    }
+                    string response = await responseMessage.Content?.ReadAsStringAsync();
 
-        //    }
-        //}
+                    TReturn obj = FromJson<TReturn>(response);
+
+                    tcs?.TrySetResult(obj);
+                }
+                catch (Exception ex)
+                {
+                    tcs?.TrySetException(ex);
+                }
+            });
+            return await tcs.Task;
+        }
+        public async Task PostAsync<TContent>(string endPoint, TContent body)
+        {
+            await Task.Run(async () =>
+             {
+                 try
+                 {
+                     string jsonBody = JsonConvert.SerializeObject(body);
+                     StringContent content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                     HttpResponseMessage responseMessage = await _baseClient.PostAsync(endPoint, content);
+
+                 }
+                 catch (Exception ex)
+                 {
+
+                 }
+
+             });
+
+        }
+
         private T FromJson<T>(string response)
         {
             try

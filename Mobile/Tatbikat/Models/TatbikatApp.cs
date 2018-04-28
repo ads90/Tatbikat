@@ -21,11 +21,13 @@ namespace Tatbikat.Models
             get;
             set;
         }
+        [JsonProperty("IosUrl")]
         public string IOSStoreLink
         {
             get;
             set;
         }
+        [JsonProperty("AndroidUrl")]
         public string AndroidStoreLink
         {
             get;
@@ -45,12 +47,13 @@ namespace Tatbikat.Models
             get;
             set;
         }
-        [JsonProperty("category")]
+        [JsonProperty("Category")]
         public List<Category> AppCategories
         {
             get;
             set;
         }
+        [Newtonsoft.Json.JsonIgnore]
         public string AppDescription
         {
             get;
