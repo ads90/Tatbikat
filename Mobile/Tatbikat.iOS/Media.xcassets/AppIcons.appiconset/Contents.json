@@ -18,7 +18,8 @@
     {
       "scale": "3x",
       "size": "29x29",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "87px.png"
     },
     {
       "scale": "2x",
@@ -33,12 +34,14 @@
     {
       "scale": "2x",
       "size": "60x60",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "120px.png"
     },
     {
       "scale": "3x",
       "size": "60x60",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "180px.png"
     },
     {
       "scale": "1x",
@@ -88,7 +91,8 @@
     {
       "scale": "1x",
       "size": "1024x1024",
-      "idiom": "ios-marketing"
+      "idiom": "ios-marketing",
+      "filename": "applestore.png"
     }
   ],
   "properties": {},

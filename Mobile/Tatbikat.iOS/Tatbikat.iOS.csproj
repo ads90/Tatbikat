@@ -137,6 +137,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\120px.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\180px.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\87px.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\applestore.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>

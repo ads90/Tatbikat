@@ -5,7 +5,7 @@
         <vm:MainPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource BackgroundColor}" Style="{StaticResource iOSPagePadding}">
+        <Grid BackgroundColor="{StaticResource BackgroundColor}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
