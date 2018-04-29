@@ -162,5 +162,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\logotransperant.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checkmark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

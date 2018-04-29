@@ -22,26 +22,17 @@ namespace TatbikatAPI.Models
             get;
             set;
         }
-        public string IosUrl
-        {
-            get;
-            set;
-        }
-        public string AndroidUrl
-        {
-            get;
-            set;
-        }
+     
         public DateTime DateAdded { get; set; }
         public bool IsVerified { get; set; }
         public DateTime DateVerified { get; set; }
 
-        public int IosAppID
+        public string IosAppID
         {
             get;
             set;
         }
-        public int AndroidAppID
+        public string AndroidAppID
         {
             get;
             set;

@@ -49,8 +49,8 @@ namespace TatbikatAPI.DatabaseOperations
                         {
                             JSONString += reader.GetString(0);
                         }
-
-                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).Where(a => a.IsVerified).ToList();
+                        //.Where(a => a.IsVerified)
+                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).ToList();
                     }
                     sqlConn.Close();
                 }
@@ -84,6 +84,11 @@ namespace TatbikatAPI.DatabaseOperations
         }
         public void PostNewApp(TatbikatApp app)
         {
+            var _tatbikatApp = GetAllApps();
+            if (_tatbikatApp.Exists(t => t.IosAppID == app.IosAppID || t.AndroidAppID == app.AndroidAppID))
+            { 
+                return;
+            }
             using (SqlConnection sqlconn = new SqlConnection(_mainDatabaseConnectionString))
             {
                 //                string inserQuery=$"BEGIN TRANSACTION insert into app values({app.Name},{app.Image},{app.IOSStoreLink},{app.AndroidStoreLink},GETDATE(),0,null)" +
@@ -99,15 +104,8 @@ namespace TatbikatAPI.DatabaseOperations
                     sqlCommand.Transaction = transaction;
 
                     try
-                    {
-                        var _tatbikatApp = GetAllApps();
-                        if (_tatbikatApp.Exists(t => t.IosAppID == app.IosAppID || t.AndroidAppID == app.AndroidAppID))
-                        {
-                            transaction.Rollback();
-                            sqlconn.Close();
-                            return;
-                        }
-                        sqlCommand.CommandText = $"insert into app values('{app.Name}','{app.Image}','{app.IosUrl}','{app.AndroidUrl}',GETDATE(),0,null)";
+                    { 
+                        sqlCommand.CommandText = $"insert into app values('{app.Name}','{app.Image}','{app.IosAppID}','{app.AndroidAppID}',GETDATE(),0,null)";
                         sqlCommand.ExecuteNonQuery();
 
                         sqlCommand.CommandText = "select SCOPE_IDENTITY()";

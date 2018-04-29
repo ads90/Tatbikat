@@ -87,7 +87,7 @@
                                 HorizontalOptions="Start"
                                 WidthRequest="25"
                                 IsVisible="{Binding IsSelected}"
-                                Source="https://png.icons8.com/color/50/267F00/checkmark.png" />
+                                Source="checkmark.png" />
                         <UIControls:SABoxView Grid.Row="1"
                                               Grid.ColumnSpan="2"
                                               VerticalOptions="End"
@@ -142,7 +142,7 @@
                            TranslationX="5"
                            TranslationY="-5"
                            IsVisible="{Binding IsAllSubCategoriesSelected}"
-                           Source="https://png.icons8.com/color/50/267F00/checkmark.png" /> 
+                           Source="checkmark.png" /> 
 
                       
                     </Grid>
