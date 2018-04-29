@@ -18,15 +18,21 @@ namespace TatbikatAPI.DatabaseOperations
         }
         /*
             TODOs
-            GetAllApps Done
-            GetAllCategories
             GetSpeceficAppFromiOSStore =>parms(appname,platform)
             GetSpeceficAppFromiOSAndroidStore(appname, platform)
             PostNewApp
             */
+        private List<TatbikatApp> _tatbikatApps;
+
+        public List<TatbikatApp> TatbikatApps
+        {
+            get { return _tatbikatApps; }
+            set { _tatbikatApps = value; }
+        }
+
         public List<TatbikatApp> GetAllApps()
         {
-            List<TatbikatApp> _tatbikatApp = new List<TatbikatApp>();
+            //List<TatbikatApp> _tatbikatApp = new List<TatbikatApp>();
             using (SqlConnection sqlConn = new SqlConnection(_mainDatabaseConnectionString))
             {
                 using (SqlCommand sqlCommand = new SqlCommand("[dbo].[GetAllAppsWithCategories]", sqlConn))
@@ -40,18 +46,17 @@ namespace TatbikatAPI.DatabaseOperations
                     {
                         string JSONString = string.Empty;
                         while (reader.Read())
-                        {
-
+                        { 
                             JSONString += reader.GetString(0);
                         }
 
-                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).ToList();
+                        TatbikatApps = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).Where(a=>a.IsVerified).ToList();
                     }
                     sqlConn.Close();
                 }
             }
 
-            return _tatbikatApp;
+            return TatbikatApps;
         }
         public List<Category> GetAllCategortries()
         {
@@ -95,6 +100,12 @@ namespace TatbikatAPI.DatabaseOperations
 
                     try
                     {
+                        if (TatbikatApps.Exists(t => t.IDForIOSApp== app.IDForIOSApp ||t.IDForAndroidApp==app.IDForAndroidApp))
+                        {
+                            transaction.Rollback();
+                            sqlconn.Close();
+                            return;
+                        }
                         sqlCommand.CommandText = $"insert into app values('{app.Name}','{app.Image}','{app.IosUrl}','{app.AndroidUrl}',GETDATE(),0,null)";
                         sqlCommand.ExecuteNonQuery();
 

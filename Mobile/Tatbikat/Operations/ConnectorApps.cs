@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Tatbikat.Models;
 
@@ -13,6 +14,7 @@ namespace Tatbikat.Operations
             {
                 ///search?term=awnak&country=sa&entity=software
                 List<TatbikatApp> apiResult = await Client.GetAsync<List<TatbikatApp>>(Endpoints.Apps.GetAllApps);
+                apiResult = apiResult.Where(app => app.IsVerified).ToList();
                 return apiResult;
             }
             catch (Exception ex)
