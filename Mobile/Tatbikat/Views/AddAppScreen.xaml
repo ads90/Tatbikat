@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" NavigationPage.HasNavigationBar="False" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.Views.AddAppScreen">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" NavigationPage.HasNavigationBar="False" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tatbikat.Views.AddAppScreen"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true" >
     <ContentPage.BindingContext>
         <vm:AddAppScreenViewModel />
     </ContentPage.BindingContext>

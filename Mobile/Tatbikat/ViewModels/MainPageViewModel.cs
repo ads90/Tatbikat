@@ -22,7 +22,7 @@ namespace Tatbikat.ViewModels
             AddAppCommand = new Command(AddAppCommandFunction);
             GetAppsAsync();
             RefreshAppsListCommand = new Command(() => GetAppsAsync());
-           
+
         }
 
 
@@ -42,10 +42,10 @@ namespace Tatbikat.ViewModels
             foreach (Category cat in result)
             {
                 //    FilteredApps = this.Apps.ta(a=>a.AppCategories.Exists(app=>app.ID==cat.ID)).ToList();
-                var item = Apps.Where((a) => a.AppCategories.Any(c => c.ID == cat.ID)).FirstOrDefault();
-                if (item != null)
+                var items = Apps.Where((a) => a.AppCategories.Any(c => c.ID == cat.ID));
+                if (items != null)
                 {
-                    FilteredApps.Add(item);
+                    FilteredApps.AddRange(items);
                 }
             }
         }

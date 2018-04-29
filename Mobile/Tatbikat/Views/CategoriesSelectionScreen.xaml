@@ -5,7 +5,9 @@
              xmlns:vm="clr-namespace:Tatbikat.ViewModels"
              xmlns:UIConverters="clr-namespace:Tatbikat.UI.Converters"
              NavigationPage.HasNavigationBar="False"
-      x:Class="Tatbikat.Views.CategoriesSelectionScreen">
+      x:Class="Tatbikat.Views.CategoriesSelectionScreen"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true" >
     <ContentPage.Resources>
         <ResourceDictionary>
             <!--<DynamicUI:DynamicUI x:Key="DynamicUI" />-->
