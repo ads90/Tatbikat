@@ -22,8 +22,10 @@ namespace Tatbikat.ViewModels
             AddAppCommand = new Command(AddAppCommandFunction);
             GetAppsAsync();
             RefreshAppsListCommand = new Command(() => GetAppsAsync());
-
+           
         }
+
+
 
         private async void SelectCategoriesCommandFunctionAsync()
         {
@@ -77,6 +79,30 @@ namespace Tatbikat.ViewModels
                 FilteredApps = Apps;
             }
         }
+        private TatbikatApp _selectedApp;
+
+        public TatbikatApp SelectedApp
+        {
+            get { return _selectedApp; }
+            set
+            {
+                RefreshUIProperty(ref _selectedApp, value);
+                if (_selectedApp != null)
+                {
+                    string urlStore;
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        urlStore = SelectedApp.AndroidStoreLink;
+                    }
+                    else
+                    {
+                        urlStore = SelectedApp.IOSStoreLink;
+                    }
+                    Device.OpenUri(new Uri(urlStore));
+                }
+            }
+        }
+
         private List<TatbikatApp> _filteredApps;
         public List<TatbikatApp> FilteredApps
         {

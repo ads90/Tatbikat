@@ -11,7 +11,7 @@
             </Grid.RowDefinitions>
             <UIControls:AppBar OnCategoryPressedCommand="{Binding SelectCategoriesCommand}" IsCategoryIconVisible="true"  IsAddIconVisible="true" OnAddPressedCommand="{Binding AddAppCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="false" PageTitleText="تطبيقات" />
             <Grid Grid.Row="1" RowSpacing="0">
-                <ListView IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshAppsListCommand}" IsRefreshing="{Binding IsLoading}"  HasUnevenRows="true" SeparatorVisibility="None" ItemsSource="{Binding FilteredApps}" >
+                <ListView SelectedItem="{Binding SelectedApp}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshAppsListCommand}" IsRefreshing="{Binding IsLoading}"  HasUnevenRows="true" SeparatorVisibility="None" ItemsSource="{Binding FilteredApps}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
