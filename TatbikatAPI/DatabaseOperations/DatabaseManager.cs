@@ -22,17 +22,17 @@ namespace TatbikatAPI.DatabaseOperations
             GetSpeceficAppFromiOSAndroidStore(appname, platform)
             PostNewApp
             */
-        private List<TatbikatApp> _tatbikatApps;
+        //private List<TatbikatApp> _tatbikatApps;
 
-        public List<TatbikatApp> TatbikatApps
-        {
-            get { return _tatbikatApps; }
-            set { _tatbikatApps = value; }
-        }
+        //public List<TatbikatApp> TatbikatApps
+        //{
+        //    get { return _tatbikatApps; }
+        //    set { _tatbikatApps = value; }
+        //}
 
         public List<TatbikatApp> GetAllApps()
         {
-            //List<TatbikatApp> _tatbikatApp = new List<TatbikatApp>();
+            List<TatbikatApp> _tatbikatApp = new List<TatbikatApp>();
             using (SqlConnection sqlConn = new SqlConnection(_mainDatabaseConnectionString))
             {
                 using (SqlCommand sqlCommand = new SqlCommand("[dbo].[GetAllAppsWithCategories]", sqlConn))
@@ -46,17 +46,17 @@ namespace TatbikatAPI.DatabaseOperations
                     {
                         string JSONString = string.Empty;
                         while (reader.Read())
-                        { 
+                        {
                             JSONString += reader.GetString(0);
                         }
 
-                        TatbikatApps = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).Where(a=>a.IsVerified).ToList();
+                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).Where(a => a.IsVerified).ToList();
                     }
                     sqlConn.Close();
                 }
             }
 
-            return TatbikatApps;
+            return _tatbikatApp;
         }
         public List<Category> GetAllCategortries()
         {
@@ -100,7 +100,8 @@ namespace TatbikatAPI.DatabaseOperations
 
                     try
                     {
-                        if (TatbikatApps.Exists(t => t.IDForIOSApp== app.IDForIOSApp ||t.IDForAndroidApp==app.IDForAndroidApp))
+                        var _tatbikatApp = GetAllApps();
+                        if (_tatbikatApp.Exists(t => t.IosAppID == app.IosAppID || t.AndroidAppID == app.AndroidAppID))
                         {
                             transaction.Rollback();
                             sqlconn.Close();

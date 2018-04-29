@@ -92,12 +92,15 @@ namespace Tatbikat.ViewModels
                     string urlStore;
                     if (Device.RuntimePlatform == Device.Android)
                     {
-                        urlStore = SelectedApp.AndroidStoreLink;
+                        urlStore = "https://play.google.com/store/apps/details?id=" + SelectedApp.AndroidAppID; 
                     }
                     else
                     {
-                        urlStore = SelectedApp.IOSStoreLink;
+                        urlStore = "https://itunes.apple.com/sa/app/id" + SelectedApp.IosAppID;
                     }
+                    //https://play.google.com/store/apps/details?id=com.tantumsoft.zind
+                    //https://itunes.apple.com/sa/app/optio-win-vouchers-and-deals/id1189168698?mt=8&uo=4
+
                     Device.OpenUri(new Uri(urlStore));
                 }
             }

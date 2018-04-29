@@ -64,7 +64,7 @@ namespace Tatbikat.ViewModels
 
         private async void SumbitNewAppCommandFunction()
         {
-            if (IOSApp?.IOSStoreLink == null || AndroidApp?.AndroidStoreLink == null || AppCategories == null)
+            if (IOSApp?.IosAppID == null || AndroidApp?.AndroidAppID == null || AppCategories == null)
             {
                 await App.Current.MainPage.DisplayAlert("خطا", "الرجاء ادخال كافة البيانات", "موافق");
                 return;
@@ -76,7 +76,7 @@ namespace Tatbikat.ViewModels
                 IOSApp.AppCategories.Add(category);
             }
             //note here i'm taking iOS app to be submitted as final app and add android line to it
-            IOSApp.AndroidStoreLink = AndroidApp.AndroidStoreLink;
+            IOSApp.AndroidAppID = AndroidApp.AndroidAppID;
             //here must add the datetime from back end
             IOSApp.DateAdded = DateTime.Now;
             await Connector.Current.PostNewApp(IOSApp);

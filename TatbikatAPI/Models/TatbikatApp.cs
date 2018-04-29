@@ -36,12 +36,12 @@ namespace TatbikatAPI.Models
         public bool IsVerified { get; set; }
         public DateTime DateVerified { get; set; }
 
-        public int IDForIOSApp
+        public int IosAppID
         {
             get;
             set;
         }
-        public int IDForAndroidApp
+        public int AndroidAppID
         {
             get;
             set;

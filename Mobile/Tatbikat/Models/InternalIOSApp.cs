@@ -26,7 +26,7 @@ namespace Tatbikat.Models
                 {
                     Image = app.AppIcon,
                     IDForIOSApp = app.IDForIOSApp,
-                    IOSStoreLink = app.AppUrl,
+                    IosAppID = app.IDForIOSApp.ToString(),
                     Name = app.AppName,
                     AppDescription=app.AppDescription
                 });

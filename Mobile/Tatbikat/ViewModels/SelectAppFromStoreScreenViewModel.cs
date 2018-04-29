@@ -103,7 +103,7 @@ namespace Tatbikat.ViewModels
                 HttpUtility.HtmlDecode(appdescriptiontex.InnerHtml, myWriter);
 
 
-                AppSearchResult.Add(new TatbikatApp() {AndroidStoreLink=$"https://play.google.com/store/apps/details?id={appidtext}" ,AppDescription = myWriter.ToString(), Name = appnametext, Image = appimagetext });
+                AppSearchResult.Add(new TatbikatApp() {AndroidAppID=appidtext ,AppDescription = myWriter.ToString(), Name = appnametext, Image = appimagetext });
             }
             IsLoading = false;
         }

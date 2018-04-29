@@ -21,14 +21,14 @@ namespace Tatbikat.Models
             get;
             set;
         }
-        [JsonProperty("IosUrl")]
-        public string IOSStoreLink
+       
+        public string IosAppID
         {
             get;
             set;
         }
-        [JsonProperty("AndroidUrl")]
-        public string AndroidStoreLink
+       
+        public string AndroidAppID
         {
             get;
             set;
