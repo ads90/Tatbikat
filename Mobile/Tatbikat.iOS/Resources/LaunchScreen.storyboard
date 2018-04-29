@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X5k-f2-b5h">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
@@ -9,6 +9,10 @@
         <scene sceneID="gAE-YM-kbH">
             <objects>
                 <viewController id="X5k-f2-b5h" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1110"/>
+                        <viewControllerLayoutGuide type="bottom" id="1111"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1106">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <subviews>
@@ -44,5 +48,6 @@
         <image name="categorize.png" width="80" height="80"/>
         <image name="UncheckedMark.png" width="96" height="96"/>
         <image name="logotransperant.png" width="115" height="115"/>
+        <image name="checkmark.png" width="50" height="50"/>
     </resources>
 </document>

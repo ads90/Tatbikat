@@ -58,6 +58,7 @@ namespace TatbikatAPI.DatabaseOperations
 
             return _tatbikatApp;
         }
+      
         public List<Category> GetAllCategortries()
         {
             List<Category> _categortries = new List<Category>();
@@ -82,6 +83,7 @@ namespace TatbikatAPI.DatabaseOperations
 
             return _categortries;
         }
+       
         public void PostNewApp(TatbikatApp app)
         {
             var _tatbikatApp = GetAllApps();
@@ -105,7 +107,7 @@ namespace TatbikatAPI.DatabaseOperations
 
                     try
                     { 
-                        sqlCommand.CommandText = $"insert into app values('{app.Name}','{app.Image}','{app.IosAppID}','{app.AndroidAppID}',GETDATE(),0,null)";
+                        sqlCommand.CommandText = $"insert into app values(N'{app.Name}','{app.Image}','{app.IosAppID}','{app.AndroidAppID}',GETDATE(),0,null)";
                         sqlCommand.ExecuteNonQuery();
 
                         sqlCommand.CommandText = "select SCOPE_IDENTITY()";
@@ -114,6 +116,7 @@ namespace TatbikatAPI.DatabaseOperations
                         foreach (var category in app.Category)
                         {
                             sqlCommand.CommandText = $"insert into appcategory values({uniqueAppID},{category.Id})";
+                            sqlCommand.ExecuteNonQuery();
                         }
 
                         // Attempt to commit the transaction.
@@ -143,11 +146,10 @@ namespace TatbikatAPI.DatabaseOperations
                         }
                         sqlconn.Close();
                     }
-
-                    sqlconn.Open();
-                    sqlCommand.ExecuteNonQuery();
                 }
             }
+
+
         }
     }
 }
