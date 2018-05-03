@@ -19,9 +19,9 @@ namespace TatbikatAPI.Controllers
        
         //if we want to make route    [HttpGet("getall")]
         [HttpGet("getallapps")]
-        public IActionResult GetAllApps()
+        public async Task<IActionResult> GetAllApps()
         {
-            return Ok(_dbm.GetAllApps());
+            return Ok(await _dbm.GetAllApps());
         }
 
         [HttpGet("getallcategortries")]

@@ -50,13 +50,12 @@ namespace Tatbikat.ViewModels
             }
         }
 
-        private void GetAppsAsync()
+        private async void GetAppsAsync()
         {
             IsLoading = true;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                Apps = await Connector.Current.GetApps();
-            });
+          
+            Apps = await Connector.Current.GetApps();
+          
             IsLoading = false;
 
         }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using TatbikatAPI.Models;
 
 namespace TatbikatAPI.DatabaseOperations
@@ -30,7 +31,7 @@ namespace TatbikatAPI.DatabaseOperations
         //    set { _tatbikatApps = value; }
         //}
 
-        public List<TatbikatApp> GetAllApps()
+        public async System.Threading.Tasks.Task<List<TatbikatApp>> GetAllApps()
         {
             List<TatbikatApp> _tatbikatApp = new List<TatbikatApp>();
             using (SqlConnection sqlConn = new SqlConnection(_mainDatabaseConnectionString))
@@ -44,13 +45,16 @@ namespace TatbikatAPI.DatabaseOperations
 
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
+                        StringBuilder sb = new StringBuilder(32767);
+
                         string JSONString = string.Empty;
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
-                            JSONString += reader.GetString(0);
+                            sb.Append(reader.GetString(0));
+                            JSONString += reader.GetValue(0);
                         }
                         //.Where(a => a.IsVerified)
-                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(JSONString).ToList();
+                        _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(sb.ToString()).ToList();
                     }
                     sqlConn.Close();
                 }
@@ -84,9 +88,9 @@ namespace TatbikatAPI.DatabaseOperations
             return _categortries;
         }
        
-        public void PostNewApp(TatbikatApp app)
+        public async void PostNewApp(TatbikatApp app)
         {
-            var _tatbikatApp = GetAllApps();
+            var _tatbikatApp =await GetAllApps();
             if (_tatbikatApp.Exists(t => t.IosAppID == app.IosAppID || t.AndroidAppID == app.AndroidAppID))
             { 
                 return;

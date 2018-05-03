@@ -19,9 +19,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid BackgroundColor="Silver" Padding="10,0" Grid.Column="0">
-                        <Button Command="{Binding SearchForAppCommand}" CommandParameter="{Binding Text,Source={x:Reference AppSearchText}}" Text="بحث" TextColor="Green" />
+                        <Button Command="{Binding SearchForAppCommand}"  Text="بحث" TextColor="Green" />
                     </Grid>
-                    <Entry x:Name="AppSearchText" HorizontalTextAlignment="End" Grid.Column="1" Placeholder="الرجاء كتابة اسم التطبيق" />
+                    <Entry Text="{Binding AppSearchText,Mode=TwoWay}" HorizontalTextAlignment="End" Grid.Column="1" Placeholder="الرجاء كتابة اسم التطبيق" />
                 </Grid>
                 <ListView IsRefreshing="{Binding IsLoading}" SelectedItem="{Binding SelectedApp}" HasUnevenRows="true" Grid.Row="1" SeparatorColor="Transparent" ItemsSource="{Binding AppSearchResult}">
                     <ListView.ItemTemplate>

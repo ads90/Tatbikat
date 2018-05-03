@@ -17,10 +17,14 @@ namespace Tatbikat.ViewModels
     {
         PlatformType _platformType;
         TaskCompletionSource<TatbikatApp> _pageTcs;
-        public Command<string> SearchForAppCommand { get; set; }
-        public SelectAppFromStoreScreenViewModel(PlatformType platformType)
+        public Command SearchForAppCommand { get; set; }
+        public SelectAppFromStoreScreenViewModel(PlatformType platformType, string appName = null)
         {
-            SearchForAppCommand = new Command<string>(SearchForAppCommandFunction);
+            if(!string.IsNullOrEmpty(appName))
+            {
+                AppSearchText = appName;
+            }
+            SearchForAppCommand = new Command(SearchForAppCommandFunction);
             _pageTcs = new TaskCompletionSource<TatbikatApp>();
             _platformType = platformType;
         }
@@ -57,55 +61,62 @@ namespace Tatbikat.ViewModels
             _pageTcs?.TrySetResult((TatbikatApp)SelectedApp);
         }
 
-        private void SearchForAppCommandFunction(string appname)
+        private void SearchForAppCommandFunction()
         {
-            if (string.IsNullOrWhiteSpace(appname))
+            if (string.IsNullOrWhiteSpace(AppSearchText))
             {
                 return;
             }
 
             if (_platformType == PlatformType.iOS)
             {
-                SearchForiOSApp(appname);
+                SearchForiOSApp(AppSearchText);
             }
             else
             {
-                SearchForAndroidApp(appname);
+                SearchForAndroidApp(AppSearchText);
             }
         }
 
         private async void SearchForAndroidApp(string appname)
         {
-            IsLoading = true;
-            //SearchForiOSApp(appname);
-            var httpClient = new HttpClient();
-            var html = await httpClient.GetStringAsync($"https://play.google.com/store/search?q={appname}&c=apps&hl=ar");
-
-            var htmlDocument = new HtmlAgilityPack.HtmlDocument();
-            htmlDocument.LoadHtml(html);
-            //var appsList = htmlDocument.DocumentNode.Descendants("div").Where(node => node.Attributes.Contains("class") && node.Attributes["class"].Value.Contains("id-card-list")).First().SelectNodes("div");
-            var appsList = htmlDocument.DocumentNode.Descendants("div").Where(node => node.Attributes.Contains("class") && node.Attributes["class"].Value.Contains("id-card-list")).First().SelectNodes("div");
-           
-            AppSearchResult = new List<TatbikatApp>();
-            foreach (var app in appsList)
+            try
             {
-                var appimagetext = "http://" + (app.Descendants("img").Where(img => img.Attributes.Contains("class") && img.Attributes["class"].Value.Contains("cover-image")).First().Attributes["src"]).Value.TrimStart('/', '/');
+                IsLoading = true;
+                //SearchForiOSApp(appname);
+                var httpClient = new HttpClient();
+                var html = await httpClient.GetStringAsync($"https://play.google.com/store/search?q={appname}&c=apps&hl=ar");
 
-                var appnametext = (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("a").Where(d => d.Attributes["class"].Value.Contains("title")).First().Attributes["title"].Value;
-                var appidtext = (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("cover"))).First().Descendants("a").First().SelectNodes("span").Where(s => s.Attributes["class"].Value.Contains("preview-overlay-container")).First().Attributes["data-docid"].Value;
+                var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+                htmlDocument.LoadHtml(html);
+                //var appsList = htmlDocument.DocumentNode.Descendants("div").Where(node => node.Attributes.Contains("class") && node.Attributes["class"].Value.Contains("id-card-list")).First().SelectNodes("div");
+                var appsList = htmlDocument.DocumentNode.Descendants("div").Where(node => node.Attributes.Contains("class") && node.Attributes["class"].Value.Contains("id-card-list")).First().SelectNodes("div");
+
+                AppSearchResult = new List<TatbikatApp>();
+                foreach (var app in appsList)
+                {
+                    var appimagetext = "http://" + (app.Descendants("img").Where(img => img.Attributes.Contains("class") && img.Attributes["class"].Value.Contains("cover-image")).First().Attributes["src"]).Value.TrimStart('/', '/');
+
+                    var appnametext = (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("a").Where(d => d.Attributes["class"].Value.Contains("title")).First().Attributes["title"].Value;
+                    var appidtext = (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("cover"))).First().Descendants("a").First().SelectNodes("span").Where(s => s.Attributes["class"].Value.Contains("preview-overlay-container")).First().Attributes["data-docid"].Value;
 
 
-                (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("div").Where(x => x.Attributes["class"].Value.Contains("description")).First().SelectSingleNode(".//span[@class='paragraph-end']").Remove();
-                (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("div").Where(x => x.Attributes["class"].Value.Contains("description")).First().SelectSingleNode(".//a").Remove();
-                var appdescriptiontex = (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("div").Where(x => x.Attributes["class"].Value.Contains("description")).First();//.InnerHtml;
-                appdescriptiontex.SetAttributeValue("style", "direction:rtl;");
-                StringWriter myWriter = new StringWriter();
-                HttpUtility.HtmlDecode(appdescriptiontex.InnerHtml, myWriter);
+                    (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("div").Where(x => x.Attributes["class"].Value.Contains("description")).First().SelectSingleNode(".//span[@class='paragraph-end']").Remove();
+                    (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("div").Where(x => x.Attributes["class"].Value.Contains("description")).First().SelectSingleNode(".//a").Remove();
+                    var appdescriptiontex = (app.Descendants("div").Where(txt => txt.Attributes.Contains("class") && txt.Attributes["class"].Value.Contains("details"))).First().Descendants("div").Where(x => x.Attributes["class"].Value.Contains("description")).First();//.InnerHtml;
+                    appdescriptiontex.SetAttributeValue("style", "direction:rtl;");
+                    StringWriter myWriter = new StringWriter();
+                    HttpUtility.HtmlDecode(appdescriptiontex.InnerHtml, myWriter);
 
 
-                AppSearchResult.Add(new TatbikatApp() {AndroidAppID=appidtext ,AppDescription = myWriter.ToString(), Name = appnametext, Image = appimagetext });
+                    AppSearchResult.Add(new TatbikatApp() { AndroidAppID = appidtext, AppDescription = myWriter.ToString(), Name = appnametext, Image = appimagetext });
+                }
+                IsLoading = false;
             }
-            IsLoading = false;
+            catch
+            {
+                await App.Current.MainPage.DisplayAlert("error", "please search again", "ok");
+            }
         }
 
         private async void SearchForiOSApp(string appname)
