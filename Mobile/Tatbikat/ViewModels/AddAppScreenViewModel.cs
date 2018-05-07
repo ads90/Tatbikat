@@ -14,12 +14,10 @@ namespace Tatbikat.ViewModels
     class AddAppScreenViewModel : ViewModelsBase
     {
         public Command AddiOSAppCommand { get; set; }
-        public Command AddAndroidAppCommand { get; set; }
         public Command SelectCategoriesCommand { get; set; }
         public Command SumbitNewAppCommand { get; set; }
         public AddAppScreenViewModel()
         {
-            AddAndroidAppCommand = new Command(AddAndroidAppCommandFunction);
             AddiOSAppCommand = new Command(AddiOSAppCommandFunction);
             SelectCategoriesCommand = new Command(SelectCategoriesCommandFunction);
             SumbitNewAppCommand = new Command(SumbitNewAppCommandFunction);
@@ -85,17 +83,25 @@ namespace Tatbikat.ViewModels
             await App.Current.MainPage.Navigation.PopAsync();
         }
 
-        private async void AddAndroidAppCommandFunction()
+        private async Task AddAndroidAppCommandFunction(string appName)
         {
-            Page page = new SelectAppFromStoreScreen(PlatformType.Android);
+            Page page = new SelectAppFromStoreScreen(PlatformType.Android,appName);
             AndroidApp = await NavigateForResultAsync<TatbikatApp>(page);
-            AppSearchAndroidText = AndroidApp == null ? "" : AndroidApp.Name;
+            if(AndroidApp==null)
+            {
+                AppSearchiOSText = "";
+                IOSApp = null;
+            }
         }
 
         private async void AddiOSAppCommandFunction()
         {
             Page page = new SelectAppFromStoreScreen(PlatformType.iOS);
             IOSApp = await NavigateForResultAsync<TatbikatApp>(page);
+            if (IOSApp != null)
+            {
+                await AddAndroidAppCommandFunction(IOSApp.Name);
+            }
             AppSearchiOSText = IOSApp == null ? "" : IOSApp.Name;
         }
 

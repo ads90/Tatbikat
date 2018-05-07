@@ -5,13 +5,10 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
-		<integer>2</integer>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -25,25 +22,18 @@
 	<key>CFBundleDisplayName</key>
 	<string>Tatbikat</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.ads.newtonsoft.test</string>
+	<string>com.ads.tatbikat</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon-60@3x</string>
-		<string>Icon-Small@3x.png</string>
-		<string>Icon-Small-40@3x.png</string>
-	</array>
+	<string>1.1</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>Tatbikat</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.1</string>
+	<string>0.0.4</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Resources/Media.xcassets/LaunchImages.launchimage</string>
 	<key>XSAppIconAssets</key>
-	<string>Resources/Media.xcassets/AppIcons.appiconset</string>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<string>Media.xcassets/AppIcons.appiconset</string>
 </dict>
 </plist>

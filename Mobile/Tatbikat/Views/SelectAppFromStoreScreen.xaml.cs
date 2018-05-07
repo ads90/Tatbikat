@@ -8,11 +8,11 @@ namespace Tatbikat.Views
 {
     public partial class SelectAppFromStoreScreen : ContentPage
     {
-        public SelectAppFromStoreScreen(PlatformType platformType)
+        public SelectAppFromStoreScreen(PlatformType platformType, string appName = null)
         {
             InitializeComponent();
-            this.BindingContext = new SelectAppFromStoreScreenViewModel(platformType);
-            appBar.PageTitleText = platformType == PlatformType.Android ? "ابحث في متجر الاندرويد":"ابحث في متجر الايفون";
+            this.BindingContext = new SelectAppFromStoreScreenViewModel(platformType,appName);
+            appBar.PageTitleText = platformType == PlatformType.Android ? "تأكيد اختيار التطبيق" : "ابحث عن التطبيق";
         }
     }
 }
