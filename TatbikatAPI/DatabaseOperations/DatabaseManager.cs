@@ -56,13 +56,12 @@ namespace TatbikatAPI.DatabaseOperations
                         //.Where(a => a.IsVerified)
                         _tatbikatApp = string.IsNullOrEmpty(JSONString) ? new List<TatbikatApp>() : JsonConvert.DeserializeObject<List<TatbikatApp>>(sb.ToString()).ToList();
                     }
-                    sqlConn.Close();
                 }
             }
 
             return _tatbikatApp;
         }
-      
+
         public List<Category> GetAllCategortries()
         {
             List<Category> _categortries = new List<Category>();
@@ -88,12 +87,12 @@ namespace TatbikatAPI.DatabaseOperations
 
             return _categortries;
         }
-       
+
         public async void PostNewApp(TatbikatApp app)
         {
-            var _tatbikatApp =await GetAllApps();
+            var _tatbikatApp = await GetAllApps();
             if (_tatbikatApp.Exists(t => t.IosAppID == app.IosAppID || t.AndroidAppID == app.AndroidAppID))
-            { 
+            {
                 return;
             }
             using (SqlConnection sqlconn = new SqlConnection(_mainDatabaseConnectionString))
@@ -111,11 +110,15 @@ namespace TatbikatAPI.DatabaseOperations
                     sqlCommand.Transaction = transaction;
 
                     try
-                    { 
-                        sqlCommand.CommandText = $"insert into app values(N'{app.Name}','{app.Image}','{app.IosAppID}','{app.AndroidAppID}',GETDATE(),0,null)";
+                    {
+                        sqlCommand.CommandText = "insert into app values(@AppName,@AppImage,null,null,GETDATE(),0,null)";
+                        sqlCommand.Parameters.AddWithValue("@AppName", app.Name);
+                        sqlCommand.Parameters.AddWithValue("@AppImage", app.Image);
+                        sqlCommand.Parameters.AddWithValue("@IosAppID", app.IosAppID);
+                        sqlCommand.Parameters.AddWithValue("@AndroidAppID", app.AndroidAppID);
                         sqlCommand.ExecuteNonQuery();
-
-                        sqlCommand.CommandText = "select SCOPE_IDENTITY()";
+                        //  SCOPE_IDENTITY() returns null after paramerized INSERT so @@IDENTITY fix my issue
+                        sqlCommand.CommandText = "select @@IDENTITY";
                         var uniqueAppID = sqlCommand.ExecuteScalar();
 
                         foreach (var category in app.Category)
@@ -128,7 +131,7 @@ namespace TatbikatAPI.DatabaseOperations
                         transaction.Commit();
                         Console.WriteLine("successed written to database.");
 
-                        sqlconn.Close();
+
                     }
 
                     catch (Exception ex)
@@ -148,8 +151,7 @@ namespace TatbikatAPI.DatabaseOperations
                             // a closed connection.
                             Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
                             Console.WriteLine("  Message: {0}", ex2.Message);
-                        }
-                        sqlconn.Close();
+                        } 
                     }
                 }
             }
