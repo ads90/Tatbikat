@@ -66,14 +66,14 @@ namespace TatbikatAPI.DatabaseOperations
         {
             List<Category> _categortries = new List<Category>();
             using (SqlConnection sqlConn = new SqlConnection(_mainDatabaseConnectionString))
-            {
+            {  
                 using (SqlCommand sqlCommand = new SqlCommand("[dbo].[GetAllCategortries]", sqlConn))
                 {
 
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                     sqlConn.Open();
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                    {
+                    { 
                         string JSONString = string.Empty;
                         while (reader.Read())
                         {
@@ -111,15 +111,17 @@ namespace TatbikatAPI.DatabaseOperations
 
                     try
                     {
-                        sqlCommand.CommandText = "insert into app values(@AppName,@AppImage,null,null,GETDATE(),0,null)";
+                        sqlCommand.CommandText = "insert into app output inserted.Id values(@AppName,@AppImage,null,null,GETDATE(),0,null)";
                         sqlCommand.Parameters.AddWithValue("@AppName", app.Name);
                         sqlCommand.Parameters.AddWithValue("@AppImage", app.Image);
                         sqlCommand.Parameters.AddWithValue("@IosAppID", app.IosAppID);
                         sqlCommand.Parameters.AddWithValue("@AndroidAppID", app.AndroidAppID);
-                        sqlCommand.ExecuteNonQuery();
-                        //  SCOPE_IDENTITY() returns null after paramerized INSERT so @@IDENTITY fix my issue
-                        sqlCommand.CommandText = "select @@IDENTITY";
                         var uniqueAppID = sqlCommand.ExecuteScalar();
+
+                        // using OUTPUT instead of @@IDENTITY in all cases. It's just the best way there is to read identity and timestamp."
+                        //SCOPE_IDENTITY() returns null after paramerized INSERT so @@IDENTITY fix my issue
+                        //sqlCommand.CommandText = "select @@IDENTITY";
+                        //var uniqueAppID = sqlCommand.ExecuteScalar();
 
                         foreach (var category in app.Category)
                         {
