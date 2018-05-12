@@ -21,7 +21,7 @@ namespace Tatbikat.ViewModels
         public CategoriesSelectionScreenViewModel(bool isNewApp)
         {
             IsNewApp = isNewApp;
-            SelectAllSubCategoriesCommand = new Command(SelectAllSubCategoriesCommandFunction);
+            //SelectAllSubCategoriesCommand = new Command(SelectAllSubCategoriesCommandFunction);
             SaveCommand = new Command(SaveCommandFunction);
 
             _pageTcs = new TaskCompletionSource<List<Category>>();
@@ -39,11 +39,34 @@ namespace Tatbikat.ViewModels
                 await App.Current.MainPage.DisplayAlert("خطا", "حدث خطا", "موافق");
                 return;
             }
-            SelectedCategory = Categories.FirstOrDefault();
+            //here we create category group
+            CategoriesGroup = new List<CategoryGroup>();
+            foreach (var category in Categories)
+            {
+                if (category.SubCategory.Count == 0)
+                {
+                    IsLoading = false;
+                    return;
+                }
+                var groupList = new CategoryGroup(category.Name){category};
+               // groupList.AddRange(category.SubCategory);
+                CategoriesGroup.Add(groupList);
+            }
+
+
+            // SelectedCategory = Categories.FirstOrDefault();
             IsLoading = false;
         }
         #region Properties
         private List<string> _salesmanSelectedSubcategories = new List<string>();
+
+        private List<CategoryGroup> _categoriesGroup;
+        public List<CategoryGroup> CategoriesGroup
+        {
+            get { return _categoriesGroup; }
+            set { RefreshUIProperty(ref _categoriesGroup, value); }
+        }
+
         private List<Category> _categories;
         public List<Category> Categories
         {
@@ -63,8 +86,8 @@ namespace Tatbikat.ViewModels
                 }
                 RefreshUIProperty(ref _selectedItemSubCategory, value);
                 _selectedItemSubCategory = null;
-                RefreshCategorySelectionStatus(SelectedCategory);
-                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
+                //RefreshCategorySelectionStatus(SelectedCategory);
+               // InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
 
                 if (IsNewApp)
                 {
@@ -77,27 +100,27 @@ namespace Tatbikat.ViewModels
                 }
             }
         }
-        private Category _selectedCategory;
-        public Category SelectedCategory
-        {
-            get { return _selectedCategory; }
-            set
-            {
-                if (_selectedCategory != null)
-                {
-                    _selectedCategory.IsSelected = false;
-                }
-                if (value != null)
-                {
-                    value.IsSelected = true;
-                }
+        //private Category _selectedCategory;
+        //public Category SelectedCategory
+        //{
+        //    get { return _selectedCategory; }
+        //    set
+        //    {
+        //        if (_selectedCategory != null)
+        //        {
+        //            _selectedCategory.IsSelected = false;
+        //        }
+        //        if (value != null)
+        //        {
+        //            value.IsSelected = true;
+        //        }
 
-                RefreshUIProperty(ref _selectedCategory, value);
+        //        RefreshUIProperty(ref _selectedCategory, value);
 
-                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
+        //        InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
 
-            }
-        }
+        //    }
+        //}
         #endregion
         private void RefreshCategorySelectionStatus(Category salescategory)
         {
@@ -115,50 +138,50 @@ namespace Tatbikat.ViewModels
             }
         }
 
-        public bool IsAllSubCategoriesSelected
-        {
-            get
-            {
-                if (SelectedCategory == null || SelectedCategory.SubCategory == null)
-                {
-                    return false;
-                }
+        //public bool IsAllSubCategoriesSelected
+        //{
+        //    get
+        //    {
+        //        if (SelectedCategory == null || SelectedCategory.SubCategory == null)
+        //        {
+        //            return false;
+        //        }
 
-                return SelectedCategory.SubCategory.All(S => S.IsSelected);
-            }
-        }
+        //        return SelectedCategory.SubCategory.All(S => S.IsSelected);
+        //    }
+        //}
 
-        private void SelectAllSubCategoriesCommandFunction()
-        {
-            if (SelectedCategory?.SubCategory == null)
-            {
-                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
-                return;
-            }
+        //private void SelectAllSubCategoriesCommandFunction()
+        //{
+        //    if (SelectedCategory?.SubCategory == null)
+        //    {
+        //        InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
+        //        return;
+        //    }
 
-            if (SelectedCategory.SubCategory.All(item => !item.IsSelected))
-            {
-                for (int sc = 0; sc < SelectedCategory.SubCategory.Count; sc++)
-                {
-                    SelectedCategory.SubCategory[sc].IsSelected = true;
-                }
+        //    if (SelectedCategory.SubCategory.All(item => !item.IsSelected))
+        //    {
+        //        for (int sc = 0; sc < SelectedCategory.SubCategory.Count; sc++)
+        //        {
+        //            SelectedCategory.SubCategory[sc].IsSelected = true;
+        //        }
 
-                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
-            }
-            else
-            {
-                for (int sc = 0; sc < SelectedCategory.SubCategory.Count; sc++)
-                {
-                    SelectedCategory.SubCategory[sc].IsSelected = false;
+        //        InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
+        //    }
+        //    else
+        //    {
+        //        for (int sc = 0; sc < SelectedCategory.SubCategory.Count; sc++)
+        //        {
+        //            SelectedCategory.SubCategory[sc].IsSelected = false;
 
-                }
+        //        }
 
-                InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
-            }
+        //        InvokePropertyChanged(nameof(IsAllSubCategoriesSelected));
+        //    }
 
-            RefreshCategorySelectionStatus(SelectedCategory);
+        //    RefreshCategorySelectionStatus(SelectedCategory);
 
-        }
+        //}
 
 
         private void SaveCommandFunction()
