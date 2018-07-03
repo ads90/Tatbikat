@@ -13,23 +13,40 @@ namespace Tatbikat.UI.Controls
         private ScrollView _scrollview;
         private StackLayout _stacklayout;
         public SAStackLayout()
-        { 
-            _stacklayout = new StackLayout() { InputTransparent = true, HorizontalOptions = LayoutOptions.End }; 
-            _scrollview = new ScrollView()
-            { 
-                Content = _stacklayout,
-                Padding = 0 
-            };
-            Content = _scrollview;
-            
+        {
+            _stacklayout = new StackLayout() { InputTransparent = true, HorizontalOptions = LayoutOptions.End };
+
         }
-        
+
         public static readonly BindableProperty ItemContentProperty = BindableProperty.Create("ItemContent", typeof(DataTemplate), typeof(SAStackLayout), default(DataTemplate));
 
         public DataTemplate ItemContent
         {
             get { return (DataTemplate)GetValue(ItemContentProperty); }
             set { SetValue(ItemContentProperty, value); }
+        }
+        private bool _isScrollable  ;
+
+        public bool IsNotScrollable
+        {
+            get { return _isScrollable; }
+            set
+            {
+                _isScrollable = value;
+                if (value)
+                {
+                    Content = _stacklayout; 
+                }
+                else
+                {
+                    _scrollview = new ScrollView()
+                    {
+                        Content = _stacklayout,
+                        Padding = 0
+                    };
+                    Content = _scrollview;
+                }
+            }
         }
 
 
@@ -44,7 +61,10 @@ namespace Tatbikat.UI.Controls
             {
                 _scrollOrientation = value;
                 _stacklayout.Orientation = value == ScrollOrientation.Horizontal ? StackOrientation.Horizontal : StackOrientation.Vertical;
-                _scrollview.Orientation = value;
+                if (_scrollview != null)
+                {
+                    _scrollview.Orientation = value;
+                }
             }
         }
 
@@ -69,7 +89,7 @@ namespace Tatbikat.UI.Controls
                 view.InputTransparent = true;
                 view.BindingContext = child;
                 element._stacklayout.Children.Add(view);
-                if (element._stacklayout.Children.Count > 0)
+                if (element.IsNotScrollable && element._stacklayout.Children.Count > 0)
                 {
                     Device.BeginInvokeOnMainThread(async () => await element._scrollview.ScrollToAsync(element._stacklayout.Children.Last(), ScrollToPosition.MakeVisible, false));
                 }

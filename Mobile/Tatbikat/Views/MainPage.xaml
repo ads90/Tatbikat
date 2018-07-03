@@ -26,12 +26,12 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid HorizontalOptions="End" Grid.Column="0"  RowSpacing="0" VerticalOptions="Center">
+                                    <Grid HorizontalOptions="End" Grid.Column="0"  RowSpacing="2" VerticalOptions="Center">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto"/>
                                             <RowDefinition Height="30"/>
                                         </Grid.RowDefinitions>
-                                        <Label Grid.Row="0" FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
+                                        <Label Grid.Row="0" FontSize="Medium" HorizontalOptions="End" HorizontalTextAlignment="End" Text="{Binding Name}"  LineBreakMode="TailTruncation"/>
                                         <!--Category-->
                                             <UIControls:SAStackLayout ItemsSource="{Binding AppCategories}" Grid.Row="1" Orientation="Horizontal">
                                             <UIControls:SAStackLayout.ItemContent>
@@ -51,7 +51,7 @@
                                         <UIControls:SABoxView HeightRequest="10" InputTransparent="True" Margin="1" CornerRadius="10" BackgroundColor="White"/>
                                         <Image WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="2" HorizontalOptions="Center" Source="{Binding Image}" />
                                     </Grid>-->
-                                        <UIControls:SAFrame Margin="0"  VerticalOptions="Center" HorizontalOptions="Center"   WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="False" OutlineColor="Silver" CornerRadius="10" Padding="0">
+                                        <UIControls:SAFrame Margin="0"  VerticalOptions="Center" HorizontalOptions="Center"   WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="False" OutlineColor="LightGray" CornerRadius="10" Padding="0">
                                             <Image  Source="{Binding Image}" />
                                         </UIControls:SAFrame>
                                   

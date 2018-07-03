@@ -1,38 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls" xmlns:vm="clr-namespace:Tatbikat.ViewModels" xmlns:UIConverters="clr-namespace:Tatbikat.UI.Converters" NavigationPage.HasNavigationBar="False" x:Class="Tatbikat.Views.CategoriesSelectionScreen" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" ios:Page.UseSafeArea="true">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:UIControls="clr-namespace:Tatbikat.UI.Controls"
+             xmlns:vm="clr-namespace:Tatbikat.ViewModels"
+             xmlns:UIConverters="clr-namespace:Tatbikat.UI.Converters"
+             NavigationPage.HasNavigationBar="False"
+      x:Class="Tatbikat.Views.CategoriesSelectionScreen"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true" >
     <ContentPage.Resources>
         <ResourceDictionary>
             <!--<DynamicUI:DynamicUI x:Key="DynamicUI" />-->
             <UIConverters:SubCategoriesSelectionStateColorConverter x:Key="SubCategoriesSelectionStateColorConverter" />
             <UIConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <DataTemplate x:Key="CategoryTemplate">
-                <UIControls:SACustomViewCell SelectedBackgroundColor="Transparent">
-                    <Grid RowSpacing="0" ColumnSpacing="0">
+                <UIControls:SACustomViewCell  SelectedBackgroundColor="Transparent">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="5" />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" ColumnSpacing="0" RowSpacing="0">
+                        <Grid    Grid.Column="0"
+                                 ColumnSpacing="0"
+                                 RowSpacing="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <UIControls:SABoxView Grid.Row="0" VerticalOptions="Start" IsCircular="True" Margin="4,0,4,-10" BackgroundColor="{Binding SelectionStatus, Converter={StaticResource SubCategoriesSelectionStateColorConverter}}" HorizontalOptions="End" WidthRequest="10" HeightRequest="10" />
-                            <Grid Grid.Row="1" Padding="5" RowSpacing="0" ColumnSpacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+
+                            <UIControls:SABoxView Grid.Row="0"
+                                                  VerticalOptions="Start"
+                                                  IsCircular="True"
+                                                  Margin="4,0,4,-10"
+                                                  BackgroundColor="{Binding SelectionStatus, Converter={StaticResource SubCategoriesSelectionStateColorConverter}}"
+                                                  HorizontalOptions="End"
+                                                  WidthRequest="10"
+                                                  HeightRequest="10" />
+
+                            <Grid Grid.Row="1"
+                                  Padding="5"
+                                  RowSpacing="0"
+                                  ColumnSpacing="0"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <Image Grid.Row="0" HeightRequest="50" Source="{Binding Image}" Aspect="AspectFit" HorizontalOptions="Center" />
-                                <Label Grid.Row="1" FontSize="Micro" Text="{Binding Name}" HorizontalOptions="Center" />
+                                <Image Grid.Row="0"
+                                       HeightRequest="50"
+                                       Source="{Binding Image}"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Center" />
+                                <Label Grid.Row="1"
+                                       FontSize="Micro"
+                                       Text="{Binding Name}"
+                                       HorizontalOptions="Center" />
                             </Grid>
                         </Grid>
-                        <BoxView WidthRequest="5" Grid.Column="1" IsVisible="{Binding IsSelected}" BackgroundColor="{StaticResource IdentityColor}" />
+                        <BoxView WidthRequest="5"
+                                 Grid.Column="1"
+                                 IsVisible="{Binding IsSelected}"
+                                 BackgroundColor="{StaticResource IdentityColor}" />
                     </Grid>
-                </UIControls:SACustomViewCell>
+                </UIControls:SACustomViewCell >
+
             </DataTemplate>
+
             <DataTemplate x:Key="SubcategoryTemplate">
-                <UIControls:SACustomViewCell SelectedBackgroundColor="Transparent">
+                <UIControls:SACustomViewCell  SelectedBackgroundColor="Transparent">
                     <Grid Margin="20,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -42,27 +79,42 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="1" HorizontalTextAlignment="End" VerticalOptions="Center" Text="{Binding Name}" />
-                        <Image Grid.Column="0" HorizontalOptions="Start" WidthRequest="25" IsVisible="{Binding IsSelected}" Source="checkmark.png" />
-                        <UIControls:SABoxView Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="End" HeightRequest="1" BackgroundColor="{StaticResource LightSilverColor}" />
+                        <Label  Grid.Column="1"
+                                             HorizontalTextAlignment="End"
+                                             VerticalOptions="Center"
+                                             Text="{Binding Name}" />
+                        <Image  Grid.Column="0"
+                                HorizontalOptions="Start"
+                                WidthRequest="25"
+                                IsVisible="{Binding IsSelected}"
+                                Source="checkmark.png" />
+                        <UIControls:SABoxView Grid.Row="1"
+                                              Grid.ColumnSpan="2"
+                                              VerticalOptions="End"
+                                              HeightRequest="1"
+                                              BackgroundColor="{StaticResource LightSilverColor}" />
                     </Grid>
                 </UIControls:SACustomViewCell>
             </DataTemplate>
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid BackgroundColor="{StaticResource BackgroundColor}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <UIControls:AppBar IsAddIconVisible="False" OnBackPressedCommand="{Binding BackCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="True" PageTitleText="التصنيفات" />
-            <Grid Grid.Row="1" ColumnSpacing="0" RowSpacing="0">
-                <!--  <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3.5*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>-->
-                <!--
+            <UIControls:AppBar IsAddIconVisible="False" OnBackPressedCommand="{Binding BackCommand}"  Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="True" PageTitleText="التصنيفات" />
+
+            <Grid Grid.Row="1" ColumnSpacing="0"  RowSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <!--TODO 3.5*-->
+                    <ColumnDefinition Width="3.5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
                 <Grid  Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -82,7 +134,7 @@
                         <Label  VerticalOptions="Center"  FontSize="Small" Text="اختر الكل" Grid.Column="0" />
                         <Image WidthRequest="25"
                            Grid.Column="1"
-                           IsVisible="{Binding Source={x:Reference isChecked},Path=!IsVisible}" 
+                           IsVisible="{Binding Source={x:Reference isChecked},Path=!IsVisible}"
                            Source="UncheckedMark.png" />
                         <Image WidthRequest="25"
                            Grid.Column="1"
@@ -90,20 +142,22 @@
                            TranslationX="5"
                            TranslationY="-5"
                            IsVisible="{Binding IsAllSubCategoriesSelected}"
-                           Source="checkmark.png" /> 
+                           Source="checkmark.png" />
 
-                      
+
                     </Grid>
-
-                    <ListView Grid.Row="1" IsRefreshing="{Binding IsLoading}"
-                          SeparatorColor="Silver"
-                          SeparatorVisibility="None"
-                          BackgroundColor="Transparent"
-                          SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}"
-                          ItemsSource="{Binding SelectedCategory.SubCategory}"
-                          ItemTemplate="{StaticResource SubcategoryTemplate}">
-
-                    </ListView>
+                    <UIControls:SAStackLayout IsNotScrollable="True"  Grid.Row="1" ItemsSource="{Binding SelectedCategory.SubCategory}"   Orientation="Horizontal">
+                        <UIControls:SAStackLayout.ItemContent>
+                            <DataTemplate>
+                                <Grid HorizontalOptions="End" >
+                                    <UIControls:SABoxView HeightRequest="10" InputTransparent="True"  CornerRadius="25" BackgroundColor="{StaticResource IdentityColor}"/>
+                                    <UIControls:SABoxView HeightRequest="10" InputTransparent="True" Margin="1" CornerRadius="25" BackgroundColor="White"/>
+                                    <Label  FontSize="Small"  Margin="2" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource IdentityColor}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </UIControls:SAStackLayout.ItemContent>
+                    </UIControls:SAStackLayout>
+                     
 
                     <Button Text="انتهى"
                                      Margin="10"
@@ -112,29 +166,19 @@
                                      VerticalOptions="End"
                                      Command="{Binding SaveCommand}"
                                      BackgroundColor="{StaticResource IdentityColor}" />
-                </Grid>-->
-                <ListView ItemsSource="{Binding Categories}" BackgroundColor="{StaticResource LightSilverColor}" SeparatorVisibility="None" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" HasUnevenRows="true">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell > 
-                                
-                            <UIControls:SAFlexLayout VerticalOptions="Start"  ItemsSource="{Binding SubCategory}" Orientation="Horizontal">
-                                <UIControls:SAFlexLayout.ItemContent>
-                                    <DataTemplate>
-                                        <Grid HorizontalOptions="End" VerticalOptions="Start">
-                                            <UIControls:SABoxView HeightRequest="25" InputTransparent="True" CornerRadius="25" BackgroundColor="{StaticResource IdentityColor}" />
-                                            <UIControls:SABoxView HeightRequest="25" InputTransparent="True" Margin="1" CornerRadius="25" BackgroundColor="White" />
-                                            <Label FontSize="Large" Margin="2" Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource IdentityColor}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </UIControls:SAFlexLayout.ItemContent>
-                            </UIControls:SAFlexLayout></ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <!-- Group Header Customization-->
-                   
-                </ListView>
+                </Grid>
+
+                <ListView Grid.Column="1"
+                      ItemsSource="{Binding Categories}"
+                      BackgroundColor="{StaticResource LightSilverColor}"
+                      SeparatorVisibility="None"
+                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                      HasUnevenRows="True"
+                      ItemTemplate="{StaticResource CategoryTemplate}" />
+
             </Grid>
+
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
