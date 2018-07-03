@@ -134,7 +134,7 @@
                         <Label  VerticalOptions="Center"  FontSize="Small" Text="اختر الكل" Grid.Column="0" />
                         <Image WidthRequest="25"
                            Grid.Column="1"
-                           IsVisible="{Binding Source={x:Reference isChecked},Path=!IsVisible}"
+                           IsVisible="{Binding Source={x:Reference isChecked},Path=!IsVisible}" 
                            Source="UncheckedMark.png" />
                         <Image WidthRequest="25"
                            Grid.Column="1"

@@ -12,13 +12,13 @@
             </Grid.RowDefinitions>
             <UIControls:AppBar OnCategoryPressedCommand="{Binding SelectCategoriesCommand}" IsCategoryIconVisible="true"  IsAddIconVisible="true" OnAddPressedCommand="{Binding AddAppCommand}" Grid.Row="0" VerticalOptions="Center" IsBackIconVisible="false" PageTitleText="تطبيقات" />
             <Grid Grid.Row="1" RowSpacing="0">
-                <ListView SelectedItem="{Binding SelectedApp}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshAppsListCommand}" IsRefreshing="{Binding IsLoading}"  HasUnevenRows="true" SeparatorVisibility="None" ItemsSource="{Binding FilteredApps}" >
+                <ListView  CachingStrategy="RecycleElement" SelectedItem="{Binding SelectedApp}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshAppsListCommand}" IsRefreshing="{Binding IsLoading}"  HasUnevenRows="true" SeparatorVisibility="None" ItemsSource="{Binding FilteredApps}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="65"/>
                                         <RowDefinition Height="1"/>
                                     </Grid.RowDefinitions> 
                                 <Grid VerticalOptions="Center" Grid.Row="0" Margin="5">
@@ -46,14 +46,14 @@
                                         </UIControls:SAStackLayout>
                                     </Grid>
 
-                                    <Grid VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" >
+                                    <!--<Grid VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" >
                                         <UIControls:SABoxView HeightRequest="10" InputTransparent="True"  CornerRadius="10" BackgroundColor="Silver"/>
                                         <UIControls:SABoxView HeightRequest="10" InputTransparent="True" Margin="1" CornerRadius="10" BackgroundColor="White"/>
                                         <Image WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="2" HorizontalOptions="Center" Source="{Binding Image}" />
-                                    </Grid>
-                                    <!--<Frame Margin="0"  VerticalOptions="Center" HorizontalOptions="Center"   WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="True" OutlineColor="Black" CornerRadius="10" Padding="0">
-                                        <Image VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding ImageSource}" />
-                                    </Frame>-->
+                                    </Grid>-->
+                                        <UIControls:SAFrame Margin="0"  VerticalOptions="Center" HorizontalOptions="Center"   WidthRequest="50" HeightRequest="50" Grid.Column="1" HasShadow="False" OutlineColor="Silver" CornerRadius="10" Padding="0">
+                                            <Image  Source="{Binding Image}" />
+                                        </UIControls:SAFrame>
                                   
                                 </Grid>
                                 <BoxView  BackgroundColor="Silver" Grid.Row="1"/>
